@@ -1,3 +1,4 @@
+django-model-utils==2.6.1
 appdirs==1.4.3
 Django==1.11
 djangorestframework==3.6.2
