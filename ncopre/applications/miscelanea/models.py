@@ -3,35 +3,11 @@ from __future__ import unicode_literals
 # third-party
 from model_utils.models import TimeStampedModel
 
+#import model application proceso
+from applications.proceso.models import Process
+
 # django import
 from django.db import models
-
-
-class BussinesUnit(TimeStampedModel):
-    """ Modelo Unidad de Negocio """
-    ruc = models.CharField(
-        'Ruc',
-        blank=True,
-        max_length=11
-    )
-    razon_social = models.CharField(
-        'razon social',
-        blank=True,
-        max_length=100
-    )
-    addresses = models.CharField(
-        'Direccion',
-        blank=True,
-        max_length=100,
-    )
-    phone = models.CharField(
-        'Telefono',
-        blank=True,
-        max_length=100,
-    )
-
-    def __str__(self):
-        return self.ruc
 
 
 class Service(TimeStampedModel):
@@ -72,8 +48,7 @@ class Observation(TimeStampedModel):
     """ Tabla Observaciones """
 
     process = models.ForeignKey(
-        'Proceso',
-        Process
+        Process,
     )
     description = models.CharField(
         'Descripcion',
@@ -89,7 +64,6 @@ class Invoice(TimeStampedModel):
     """ Modelo Factura"""
 
     process = models.ForeignKey(
-        'Proceso',
         Process,
     )
     number = models.CharField(

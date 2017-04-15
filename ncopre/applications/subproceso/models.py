@@ -48,12 +48,8 @@ class Field(TimeStampedModel):
 class FieldsSubProcess(TimeStampedModel):
     """django data model campossubprocesos"""
 
-    sub_process = models.ForeignKey('SubProcess')
-    field = models.ForeignKey('Field')
+    sub_process = models.ForeignKey(SubProcess)
+    field = models.ForeignKey(Field)
 
     def __str__(self):
         return self.sub_process
-
-
-
-

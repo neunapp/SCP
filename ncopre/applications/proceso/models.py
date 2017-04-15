@@ -7,24 +7,49 @@ from django.db import models
 # third-party
 from model_utils.models import TimeStampedModel
 
-#import local miscelanea
-from applications.miscelanea.models import BussinesUnit, Service
+#import model miscelanea
+
+class BussinesUnit(TimeStampedModel):
+    """ Modelo Unidad de Negocio """
+
+    ruc = models.CharField(
+        'Ruc',
+        blank=True,
+        max_length=11
+    )
+    razon_social = models.CharField(
+        'razon social',
+        blank=True,
+        max_length=100
+    )
+    addresses = models.CharField(
+        'Direccion',
+        blank=True,
+        max_length=100,
+    )
+    phone = models.CharField(
+        'Telefono',
+        blank=True,
+        max_length=100,
+    )
+
+    def __str__(self):
+        return self.ruc
 
 
 class Process(TimeStampedModel):
     """ Tabla Proceso """
 
     bussinesunit = models.ForeignKey(
-        'Unidad de Negocio',
         BussinesUnit,
     )
     attendant = models.ForeignKey(
-        'Encargado',
         settings.AUTH_USER_MODEL,
+        related_name='encargado_proceso',
     )
     responsible = models.ForeignKey(
-        'Responsable',
         settings.AUTH_USER_MODEL,
+        related_name='responsable_proceso',
     )
     date_start = models.DateField(
         'Fecha Inicio',
@@ -95,6 +120,14 @@ class Process(TimeStampedModel):
         'Destino',
         blank=True,
         max_length=100
+    )
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='created_proceso',
+    )
+    modified_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='modified_proceso',
     )
 
     def __str__(self):

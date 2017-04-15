@@ -29,10 +29,11 @@ DJANGO_APPS = (
 
 LOCAL_APPS = (
     'applications.home',
+    'applications.users',
     'applications.miscelanea',
     'applications.proceso',
-    'applications.subproceso',
     'applications.item',
+    'applications.subproceso',
 )
 
 THIRD_PARTY_APPS = (
@@ -70,6 +71,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ncopre.wsgi.application'
+
+AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
