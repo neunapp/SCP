@@ -7,7 +7,11 @@ from django.db import models
 # third-party
 from model_utils.models import TimeStampedModel
 
-#import model miscelanea
+#import local manager
+
+from .manegers import BussinesUnitManager , ProcessManager
+
+
 
 class BussinesUnit(TimeStampedModel):
     """ Modelo Unidad de Negocio """
@@ -33,6 +37,12 @@ class BussinesUnit(TimeStampedModel):
         max_length=100,
     )
 
+    anulate = models.BooleanField(
+        'anulado',
+        default=False,
+    )
+
+    objects = BussinesUnitManager()
     def __str__(self):
         return self.ruc
 
@@ -42,6 +52,11 @@ class Process(TimeStampedModel):
 
     bussinesunit = models.ForeignKey(
         BussinesUnit,
+        blank=True
+    )
+    name = models.CharField(
+        'Nombre',
+        max_length=200
     )
     attendant = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -64,6 +79,7 @@ class Process(TimeStampedModel):
     created = models.BooleanField(
         'Creado',
         default=True
+
     )
     date_created = models.DateField(
         'Fecha Creacion',
@@ -79,14 +95,14 @@ class Process(TimeStampedModel):
         'Finalizado',
         default=False,
     )
-    date_end = models.DateField(
+    date_end2 = models.DateField(
         'Fecha Fin',
         blank=True,
         null=True
     )
     close = models.BooleanField(
         'Cerrado',
-        default=False,
+        default=False
     )
     date_close = models.DateField(
         'Fecha Cerrado',
@@ -95,7 +111,8 @@ class Process(TimeStampedModel):
     )
     started = models.BooleanField(
         'Iniciado',
-        default=False
+        default=False,
+        blank=True
     )
     budget_estimated = models.DecimalField(
         'Presupuesto',
@@ -124,11 +141,17 @@ class Process(TimeStampedModel):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='created_proceso',
+        blank=True
+
     )
     modified_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='modified_proceso',
+        blank=True
     )
-
+    anulate = models.BooleanField(
+        default=False
+    )
+    objects = ProcessManager()
     def __str__(self):
-        return str(self.bussinesunit.name)
+        return str(self.name)

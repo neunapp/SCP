@@ -1,0 +1,30 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %}Agregar{% endblock %}
+
+{% load  staticfiles%}
+{% block content %}
+<body>
+
+    <p> Agregar proceso</p>
+<div ng-app="CopreApp" ng-controller="ProcesoAddCtrl as self" ng-init="self.procesousuario_list()">
+    <p>Nombre<input type="text" ng-model="self.name"></p>
+    <p>Fecha Inicio<input type="text" ng-model="self.date_start"> </p>
+    <p>Fecha Fin<input type="text" ng-model="self.date_end">  </p>
+    <p>Presupuesto estimado<input type="text" ng-model="self.budget_estimated">  </p>
+    <p>Presupuesto real<input type="text" ng-model="self.budget_real">  </p>
+
+
+
+<select ng-model="self.responsible">
+          <option ng-repeat="c in self.proceso_usuario" value="{$ c.pk $}">{$ c.username $}</option>
+</select>
+
+<select ng-model="self.attendant">
+          <option ng-repeat="t in self.proceso_usuario" value="{$ t.pk $}">{$ t.username $}</option>
+</select>
+
+    <button ng-model="self.guardar" ng-click="self.proceso_add({{ object.pk }})"> guardar</button>
+    </div>
+</body>
+{% endblock %}

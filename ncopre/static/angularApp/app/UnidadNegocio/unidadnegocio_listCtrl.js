@@ -8,10 +8,31 @@
 
         //funcion que lista unidad de negocio
         self.unidadnegocio_lista = function(){
-          equiposervice.unidadnegocio_lista()
+          unidadnegocioservice.unidadnegocio_lista()
             .then(function(response){
-                self.unida_negocio = response.data;
+                self.unidad_negocios = response.data;
             });
         };
+
+        //funcion para recuperar unidad de negocio
+        self.unidadnegocio_retrieve = function (pk) {
+           unidadnegocioservice.unidadnegocio_retrieve(pk)
+             .then(function(response){
+                 self.unidad_negocio = response.data;
+             })
+        };
+
+        //funcion para actualizar estado de unidad de negocio
+        self.unidadnegocio_stateupdate = function (pk, bolean) {
+           var json = {
+               "pk":pk,
+               "anulate": bolean
+           };
+           console.log(unidadnegocioservice.unidadnegocio_stateupdate(json));
+           console.log("agregado correctamente");
+        };
+
+
+        
   }
 }());

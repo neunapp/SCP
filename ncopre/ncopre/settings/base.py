@@ -5,7 +5,11 @@ from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(3)
 
-with open("secrets.json") as f:
+#base verdadera
+key = "secrets.json"
+#base de prueba
+
+with open(key) as f:
     secrets = json.loads(f.read())
 
 def get_secret(secret_name, secrets=secrets):

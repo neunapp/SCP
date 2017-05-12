@@ -1,0 +1,51 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %}lista{% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+    <div ng-app="CopreApp" >
+
+        <button onclick="activarboton()" id="enproceso">En Proceso</button>
+        <button id="terminado">Terminado</button>
+        <button id="eliminado">eliminado</button>
+
+        <p>
+            --------------------------------------------------------------</p>
+             <div id="enprocesocontenedor" style="display: none" ng-controller="ProcesoListCtrl as self" ng-init="self.procesofiltro_list({{ object.pk }}, 1)"  >
+                  <input type="text" ng-model="self.buscar">
+
+                <p ng-repeat="u in self.respuesta | filter:self.buscar">
+                    {$ u.bussinesunit $}
+                    {$ u.name $}
+                    {$ u.attendant $}
+                    {$ u.responsible $}
+                    {$ u.date_start $}
+                    {$ u.date_end $}
+                    {$ u.created $}
+                    {$ u.date_close $}
+                    {$ u.budget_estimated $}
+                    {$ u.budget_real $}
+                    {$ u.finished $}
+                </p>
+             </div>
+        --------------------------------------------------------------
+
+
+        </div>
+
+    <script type="javascript">
+
+        var botonenproceso = document.getElementById("enproceso");
+        var botonterminado = document.getElementById("terminado");
+        var botoneliminado = document.getElementById("eliminado");
+        var enproceso = document.getElementById("enprocesocontenedor");
+        function activarboton() {
+            enproceso.style.display = "";
+        }
+
+
+
+    </script>
+{% endblock %}

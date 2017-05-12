@@ -8,4 +8,5 @@ urlpatterns = [
         views.IndexView.as_view(),
         name='index'
     ),
+
 ]

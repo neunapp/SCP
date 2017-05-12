@@ -27,11 +27,12 @@ urlpatterns = [
     # urls para la aplicacion item
     # url(r'^', include('applications.item.urls', namespace="item_app")),
     # urls para la aplicacion proceso
-    # url(r'^', include('applications.proceso.urls', namespace="proceso_app")),
+    url(r'^', include('applications.proceso.urls', namespace="proceso_app")),
     # urls para la aplicacion subproceso
     # url(r'^', include('applications.subproceso.urls', namespace="subproceso_app")),
     # urls para la aplicacion miscelanea
     # url(r'^', include('applications.miscelanea.urls', namespace="miscelanea_app")),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

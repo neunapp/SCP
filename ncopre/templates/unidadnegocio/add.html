@@ -1,0 +1,21 @@
+{% extends "unidadnegocio/base_unidadnegocio.html" %}
+
+{% block title %}lista{% endblock %}
+
+{% load  staticfiles%}
+{% block content %}
+<body>
+
+    <p> Agregar unidad de negocio</p>
+<div ng-app="CopreApp" ng-controller="UnidadnegocioAddCtrl as self">
+    <p>ruc<input type="text" ng-model="self.ruc" ng-change="self.validate_fields()"></p>
+    <spam>{$ self.msj_ruc $}</spam>
+    <p>razon social <input type="text" ng-model="self.razon_social"> </p>
+    <p>direccion<input type="text" ng-model="self.addresses">  </p>
+    <p>telefono<input type="text" ng-model="self.phone">  </p>
+
+    <button ng-model="self.guardar" ng-click="self.unidadnegocio_add()"> guardar</button>
+</div>
+
+</body>
+{% endblock %}

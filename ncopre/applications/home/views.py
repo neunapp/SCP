@@ -11,3 +11,5 @@ class IndexView(TemplateView):
      clase principal
     '''
     template_name = 'home/index.html'
+
+

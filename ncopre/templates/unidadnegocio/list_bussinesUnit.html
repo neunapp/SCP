@@ -1,0 +1,22 @@
+{% extends "unidadnegocio/base_unidadnegocio.html" %}
+
+{% block title %}lista{% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+    <div ng-app="CopreApp" >
+        <div ng-controller="UnidadnegocioListCtrl as self" ng-init="self.unidadnegocio_lista()"  >
+
+            <input type="text" ng-model="self.buscar">
+
+                <p ng-repeat="u in self.unidad_negocios | filter:self.buscar">
+                    {$ u.ruc $} -- {$ u.razon_social $}--{$ u.pk $}
+
+                    <button onclick="window.location.reload();" ng-click = "self.unidadnegocio_stateupdate(u.pk , 'True')">anular</button>
+                </p>
+        </div>
+
+    </div>
+
+{% endblock %}
