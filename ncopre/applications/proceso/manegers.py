@@ -45,5 +45,25 @@ class ProcessManager(models.Manager):
           print "consulta mal Hecha"
 
 
+    #procedimiento para listar procesos recientes segun pk
+    def proceso_todos(self, pk):
+        return self.filter(
+            bussinesunit=pk,
+            anulate=False,
+            finished=False
+        ).order_by("-pk")
+
+
+    #procedimiento para filtrar procesos por nombre
+    def proceso_nombre(self, pk, name):
+        return self.filter(
+            bussinesunit=pk,
+            name=name,
+            anulate=False,
+            finished=False
+        ).order_by("-pk")
+
+
+
 
 

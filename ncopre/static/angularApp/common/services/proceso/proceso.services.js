@@ -30,9 +30,20 @@
 
           //listar proceso que estan en proceso
           self.procesofiltro_list = function (pk, flat) {
-              return $http.get("/api/filtroproceso/listar/"+pk+"/"+flat+"/")
+              return $http.get("/api/filtroproceso/listar/"+pk+"/"+flat+"/");
           };
 
+
+          //listar procesos recientes
+          self.procesoreciente_list = function (pk) {
+              return $http.get("/api/procesoreciente/listar/"+pk+"/");
+          };
+
+
+          //listar procesos por nombre
+          self.procesonombre_list = function (pk, name) {
+              return $http.get("/api/procesonombre/listar/"+pk+"/"+name+"/");
+          };
           return self;
         }
 

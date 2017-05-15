@@ -51,3 +51,11 @@ class ProceessForBunitView(DetailView):
 
     model = BussinesUnit
     template_name = 'proceso/list_processbunit.html'
+
+
+
+class ProcessNowBunitView(DetailView):
+    """vista para mostrar los procesos recientes"""
+
+    model = BussinesUnit
+    template_name = 'proceso/list_processnowbunit.html'

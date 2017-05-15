@@ -14,15 +14,34 @@
             });
         };
 
-        //funcion que lista proceso en proceso
-
-        //funcion que lista procesos eliminados
+        //funcion que lista procesos por unidad de negocio segun flat
         self.procesofiltro_list = function (pk, flat) {
             procesoservice.procesofiltro_list(pk, flat)
               .then(function (response) {
                   self.respuesta = response.data;
                 })
         };
+
+
+        //funcion que lista procesos recientes
+        self.procesoreciente_list = function (pk) {
+            procesoservice.procesoreciente_list(pk)
+                .then(function (response) {
+                    self.procesoreciente = response.data;
+
+                })
+
+        };
+
+
+        //proceso que filtra procesos por nombre
+        self.procesonombre_list = function (pk, name) {
+            procesoservice.procesonombre_list(pk, name)
+                .then(function (response) {
+                    self.procesonombre = response.data;
+                })
+        };
+
     }
 
 

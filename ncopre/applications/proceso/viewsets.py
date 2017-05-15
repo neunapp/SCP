@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 #local import
-from .serializers import BussinesUnitAddSerializer, BussinesUnitUpdateSerializer, BussinesUnitRetrieveSerializer, ProcessAddSerializer, ListUserSerializer, BussinesUnitUpdateStateAnulateSerializer, ProcessListSerializer
+from .serializers import BussinesUnitAddSerializer, BussinesUnitUpdateSerializer, BussinesUnitRetrieveSerializer, ProcessAddSerializer, ListUserSerializer, BussinesUnitUpdateStateAnulateSerializer, ProcessListSerializer, ProcessNowListSerializer, ProcessNameListSerializer
 from .models import BussinesUnit, Process
 
 # import from other application
@@ -155,6 +155,30 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
         flat = self.kwargs['flat']
         queryset=Process.objects.proceso_filtro(pk, flat)
         return queryset
+
+
+
+class ProcesoNowUnidadNegocioViewSet(viewsets.ModelViewSet):
+    """viewset para listar 50 primeros elementos creados"""
+
+    serializer_class = ProcessNowListSerializer
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset =Process.objects.proceso_todos(pk)[0:50]
+        return queryset
+
+
+
+class ProcesoNameUnidadNegocioViewSet(viewsets.ModelViewSet):
+    """viewset para listar procesos por nombre"""
+
+    serializer_class = ProcessNameListSerializer
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        name = self.kwargs['name']
+        queryset = Process.objects.proceso_nombre(pk, name)
+        return queryset
+
 
 
 

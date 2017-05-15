@@ -7,14 +7,28 @@
 {% block content %}
     <div ng-app="CopreApp" >
 
-        <button onclick="activarboton()" id="enproceso">En Proceso</button>
-        <button id="terminado">Terminado</button>
-        <button id="eliminado">eliminado</button>
+        <button id="enproceso" onclick="activarbotonenproceso()" >En Proceso</button>
+        <button id="terminado" onclick="activarbotonterminado()">Terminado</button>
+        <button id="eliminado" onclick="acivarbotoneliminado()">eliminado</button>
 
-        <p>
-            --------------------------------------------------------------</p>
              <div id="enprocesocontenedor" style="display: none" ng-controller="ProcesoListCtrl as self" ng-init="self.procesofiltro_list({{ object.pk }}, 1)"  >
-                  <input type="text" ng-model="self.buscar">
+                <input type="text" ng-model="self.buscar">
+                <p ng-repeat="u in self.respuesta | filter:self.buscar">
+                    {$ u.bussinesunit $}
+                    {$ u.name $}
+                    {$ u.attendant $}
+                    {$ u.responsible $}
+                    {$ u.date_start $}
+                    {$ u.date_end $}
+                    {$ u.created $}
+                    {$ u.date_close $}
+                    {$ u.budget_estimated $}
+                    {$ u.budget_real $}
+                    {$ u.finished $}
+                </p>
+             </div>
+             <div id="terminadocontenedor" style="display: none" ng-controller="ProcesoListCtrl as self" ng-init="self.procesofiltro_list({{ object.pk }}, 2)"  >
+                <input type="text" ng-model="self.buscar">
 
                 <p ng-repeat="u in self.respuesta | filter:self.buscar">
                     {$ u.bussinesunit $}
@@ -30,21 +44,61 @@
                     {$ u.finished $}
                 </p>
              </div>
-        --------------------------------------------------------------
+
+            <div id=eliminarcontenedor" style="display: none" ng-controller="ProcesoListCtrl as self" ng-init="self.procesofiltro_list({{ object.pk }}, 3)"  >
+                <input type="text" ng-model="self.buscar">
+                <p ng-repeat="u in self.respuesta | filter:self.buscar">
+                    {$ u.bussinesunit $}
+                    {$ u.name $}
+                    {$ u.attendant $}
+                    {$ u.responsible $}
+                    {$ u.date_start $}
+                    {$ u.date_end $}
+                    {$ u.created $}
+                    {$ u.date_close $}
+                    {$ u.budget_estimated $}
+                    {$ u.budget_real $}
+                    {$ u.finished $}
+                </p>
+             </div>
 
 
         </div>
 
-    <script type="javascript">
+    <script language="JavaScript">
+
 
         var botonenproceso = document.getElementById("enproceso");
         var botonterminado = document.getElementById("terminado");
         var botoneliminado = document.getElementById("eliminado");
-        var enproceso = document.getElementById("enprocesocontenedor");
-        function activarboton() {
-            enproceso.style.display = "";
-        }
 
+        function activarbotonenproceso() {
+           var contenedor = document.getElementById("enprocesocontenedor");
+           var terminado = document.getElementById("terminadocontenedor");
+           var eliminado = document.getElementById("eliminadocontenedor");
+           contenedor.style.display="block";
+           terminado.style.display = "none";
+           eliminado.style.display = "none";
+        }
+        
+        function activarbotonterminado() {
+           var contenedor = document.getElementById("terminadocontenedor");
+           var enproceso = document.getElementById("enprocesocontenedor");
+           var eliminado = document.getElementById("eliminadocontenedor");
+           contenedor.style.display = "block";
+           enproceso.style.display = "none";
+           eliminado.style.display = "none";
+        }
+        
+        function acivarbotoneliminado() {
+            var contenedor = document.getElementById("eliminadocontenedor");
+            var enproceso = document.getElementById("enprocesocontenedor");
+            var terminado = document.getElementById("terminadocontenedor");
+            contenedor.style.display = "block";
+            enproceso.style.display = "none";
+            eliminado.style.display = "none";
+        }
+        
 
 
     </script>
