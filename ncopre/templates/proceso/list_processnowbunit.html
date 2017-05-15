@@ -1,0 +1,46 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %}lista{% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+    <div ng-app="CopreApp" >
+            <div ng-controller="ProcesoListCtrl as self">
+              <form name="myForm">
+                <label>
+                   nombre proceso:
+                   <input type="text" name="NombreProceso" ng-model="user.name" required>
+                </label>
+                <div role="alert">
+                  <span class="error" ng-show="myForm.NombreProceso.$error.required">
+                   Required!</span>
+                </div>
+                    <div onblur="nosale()" ng-init="self.procesonombre_list(1, 'sadfsfsd')">
+                         <p ng-repeat="u in self.procesonombre | filter:self.buscar">
+                            {$ u.pk $}
+                            {$ u.bussinesunit $}
+                            {$ u.name $}
+                            {$ u.attendant $}
+                            {$ u.responsible $}
+                            {$ u.date_start $}
+                            {$ u.date_end $}
+                            {$ u.created $}
+                            {$ u.date_close $}
+                            {$ u.budget_estimated $}
+                            {$ u.budget_real $}
+                            {$ u.finished $}
+                         </p>
+                    </div>
+
+              </form>
+
+            </div>
+        </div>
+        <script type="javascript">
+            function nosale() {
+                alert('sale mierda');
+            }
+        </script>
+{% endblock %}
