@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 
 
 class BussinesUnitManager(models.Manager):
@@ -54,14 +55,16 @@ class ProcessManager(models.Manager):
         ).order_by("-pk")
 
 
-    #procedimiento para filtrar procesos por nombre
-    def proceso_nombre(self, pk, name):
-        return self.filter(
+    #prueba trigram postgresql
+    def proceso_pruebanombre(self, pk, namep):
+        return self.annotate(
+           search=SearchVector('name')
+        ).filter(
+            search=namep,
             bussinesunit=pk,
-            name=name,
             anulate=False,
             finished=False
-        ).order_by("-pk")
+        ).order_by('-pk')[0:50]
 
 
 

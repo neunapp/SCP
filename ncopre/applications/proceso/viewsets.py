@@ -176,7 +176,7 @@ class ProcesoNameUnidadNegocioViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         pk = self.kwargs['pk']
         name = self.kwargs['name']
-        queryset = Process.objects.proceso_nombre(pk, name)
+        queryset = Process.objects.proceso_pruebanombre(pk, name)
         return queryset
 
 
