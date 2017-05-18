@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 
 
 class BussinesUnitManager(models.Manager):
@@ -65,8 +66,6 @@ class ProcessManager(models.Manager):
             anulate=False,
             finished=False
         ).order_by('-pk')[0:50]
-
-
 
 
 
