@@ -1,0 +1,69 @@
+{% extends "subproceso/base_subproceso.html" %}
+
+{% block title %}Agregar sub proceso para {{object.name}}{% endblock %}
+
+{% load  staticfiles%}
+{% block content %}
+
+  <div ng-app="CopreApp" ng-controller="SubprocesoAddCtrl as self">
+    <div class="columnas">
+      <p>
+        <h1> {{object.name}} </h1>
+      </p>
+    </div>
+    <p>
+      Nombre:<input type="text" name="name" ng-model="self.name_subproceso">
+    </p>
+    <p>
+      Descripcion:<input type="text" name="name" ng-model="self.description_subproceso">
+    </p>
+    <p>
+      -----------------------------------------------------------
+    </p>
+    <div>
+      Nombre: <input type="text" ng-model="self.name_field">
+      Tipo de Campo:
+      <select ng-model="self.type_field">
+        <option value="S">Texto</option>
+        <option value="I">Numero Entero</option>
+        <option value="D">Numero con Decimales</option>
+      </select>
+      Obligatorio: <input type="checkbox" ng-model="self.required_field">
+    </div>
+    <button type="button" name="button" ng-click="self.columns_add()">Nueva Columna</button>
+    <p>
+      ****************************************************
+    </p>
+    <table border="3">
+      <thead>
+        <tr>
+          <th ng-repeat="f in self.fields">
+            {$ f.name $}
+          </th>
+        </tr>
+      </thead>
+    </table>
+    <p>
+      ====================================
+    </p>
+    <table border="1">
+      <tbody>
+        <tr ng-repeat="i in self.items">
+          <td ng-repeat="c in i.colums">
+            <input type="text" name="name" ng-model="c.valor[c.id]">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button type="button" name="button" ng-click="self.rows_add()">Nueva Fila</button>
+    </div>
+    <p>
+      ###################################
+    </p>
+    <button type="button" name="button" ng-click="self.subproceso_add({{object.pk}})">Completar Proceso</button>
+
+  </div>
+
+
+{% endblock %}

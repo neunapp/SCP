@@ -26,19 +26,21 @@ class Field(TimeStampedModel):
     """Django data model campos"""
 
     TYPE_INT = 'I'
+    TYPE_DECIMAL = 'D'
     TYPE_STRING = 'S'
     TYPE_CHOICES = (
         (TYPE_INT, 'entero'),
         (TYPE_STRING, 'cadena'),
+        (TYPE_DECIMAL, 'decimal'),
     )
     name = models.TextField('nombre', max_length=70)
-    type = models.CharField(
+    type_field = models.CharField(
         'tipo',
-        max_length=6,
+        max_length=2,
         choices = TYPE_CHOICES
     )
     required = models.BooleanField(default=True)
-    description = models.TextField('descripcion')
+    description = models.TextField('descripcion', blank=True)
 
     def __str__(self):
         return self.name
@@ -53,10 +55,3 @@ class FieldsSubProcess(TimeStampedModel):
 
     def __str__(self):
         return self.sub_process
-
-
-
-
-
-
-

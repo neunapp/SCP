@@ -56,7 +56,8 @@ class Process(TimeStampedModel):
     )
     name = models.CharField(
         'Nombre',
-        max_length=200
+        max_length=300,
+        unique=True,
     )
     attendant = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -95,11 +96,6 @@ class Process(TimeStampedModel):
         'Finalizado',
         default=False,
     )
-    date_end2 = models.DateField(
-        'Fecha Fin',
-        blank=True,
-        null=True
-    )
     close = models.BooleanField(
         'Cerrado',
         default=False
@@ -118,25 +114,25 @@ class Process(TimeStampedModel):
         'Presupuesto',
         blank=True,
         null=True,
-        max_digits=7,
-        decimal_places=2
+        max_digits=12,
+        decimal_places=3
     )
     budget_real = models.DecimalField(
         'Presupuesto',
         blank=True,
         null=True,
-        max_digits=7,
-        decimal_places=2
+        max_digits=12,
+        decimal_places=3
     )
     origin = models.CharField(
         'Origin',
         blank=True,
-        max_length=100
+        max_length=200
     )
     destination = models.CharField(
         'Destino',
         blank=True,
-        max_length=100
+        max_length=200
     )
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

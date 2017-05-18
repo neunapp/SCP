@@ -33,15 +33,14 @@ class Item(TimeStampedModel):
     detail_camp_subprocess = models.ForeignKey(
         FieldsSubProcess,
     )
-    tipe_item = models.CharField(
+    tipy_item = models.CharField(
         'Tipo',
         blank=True,
         max_length=100,
     )
-    value = models.DecimalField(
+    value = models.CharField(
         'Valor',
-        max_digits=7,
-        decimal_places=3,
+        max_length=300,
     )
 
     def __str__(self):

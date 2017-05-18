@@ -6,7 +6,15 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 
 #local import
-from .serializers import BussinesUnitAddSerializer, BussinesUnitUpdateSerializer, BussinesUnitRetrieveSerializer, ProcessAddSerializer, ListUserSerializer, BussinesUnitUpdateStateAnulateSerializer, ProcessListSerializer
+from .serializers import (
+    BussinesUnitAddSerializer,
+    BussinesUnitUpdateSerializer,
+    BussinesUnitRetrieveSerializer,
+    ProcessAddSerializer,
+    BussinesUnitUpdateStateAnulateSerializer,
+    ProcessListSerializer,
+    ProcessGetSerializer,
+)
 from .models import BussinesUnit, Process
 
 # import from other application
@@ -34,15 +42,13 @@ class BussinesUnitAddViewSet(viewsets.ViewSet):
         return Response()
 
 
-
 class BussinesUnitRetriveViewSet(viewsets.ViewSet):
-    """serializador para recuperar unidad de negocio"""
+    """viewset para recuperar unidad de negocio"""
 
     def retrieve(self, request, pk=None):
         unidanegocio = get_object_or_404(BussinesUnit, pk=pk)
         serializer = BussinesUnitRetrieveSerializer(unidanegocio, context={'request': request})
         return Response(serializer.data)
-
 
 
 class BussinesUnitUpdateViewSet(viewsets.ViewSet):
@@ -94,7 +100,7 @@ class BussinesUnitListViewSet(viewsets.ModelViewSet):
 
 
 class ProcessAddViewSet(viewsets.ViewSet):
-    """viewset paraagregar Proceso"""
+    """viewset para agregar Proceso"""
 
     def create(self, request):
         serializado = ProcessAddSerializer(data=request.data)
@@ -124,6 +130,16 @@ class ProcessAddViewSet(viewsets.ViewSet):
         return Response()
 
 
+class ProcessGetViewSet(viewsets.ViewSet):
+    """servicio para recuperar un Proceso por pk"""
+
+    def retrieve(self, request, pk=None):
+        #recuperaos proceso por nombre
+        proceso = get_object_or_404(Process, pk=pk)
+        serializer = ProcessGetSerializer(proceso,context={'request': request})
+        return Response(serializer.data)
+
+
 
 class ProcessListForBussinesUnitViewSet(viewsets.ModelViewSet):
     """VIewset para listar process por unidad de negocio"""
@@ -135,17 +151,6 @@ class ProcessListForBussinesUnitViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-
-class ListUserViewSet(viewsets.ModelViewSet):
-    """VIewset usuairo"""
-
-    serializer_class = ListUserSerializer
-    def get_queryset(self):
-        queryset = User.objects.all()
-        return queryset
-
-
-
 class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
     """viewset para listar filtros para proceso por unidad de negocio"""
 
@@ -155,6 +160,3 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
         flat = self.kwargs['flat']
         queryset=Process.objects.proceso_filtro(pk, flat)
         return queryset
-
-
-
