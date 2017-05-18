@@ -66,5 +66,18 @@ urlpatterns = [
         name='api-proceso_retrive'
     ),
 
+    # listar procesos por nombres
+    url(
+      r'^api/procesonombre/listar/(?P<pk>[-\w]+)/(?P<name>[-\w]+)/$',
+        viewsets.ProcesoNameUnidadNegocioViewSet.as_view({'get':'list'}),
+        name='api-procesonombre_list'
+    ),
 
+
+    #listar procesos recientes
+    url(
+        r'^api/procesoreciente/listar/(?P<pk>[-\w]+)/$',
+        viewsets.ProcesoNowUnidadNegocioViewSet.as_view({'get': 'list'}),
+        name='api-procesoreciente_list'
+    ),
 ]

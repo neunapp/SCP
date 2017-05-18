@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 
 
 class BussinesUnitManager(models.Manager):
@@ -44,6 +46,26 @@ class ProcessManager(models.Manager):
         else:
           print "consulta mal Hecha"
 
+
+    #procedimiento para listar procesos recientes segun pk
+    def proceso_todos(self, pk):
+        return self.filter(
+            bussinesunit=pk,
+            anulate=False,
+            finished=False
+        ).order_by("-pk")
+
+
+    #prueba trigram postgresql
+    def proceso_pruebanombre(self, pk, namep):
+        return self.annotate(
+           search=SearchVector('name')
+        ).filter(
+            search=namep,
+            bussinesunit=pk,
+            anulate=False,
+            finished=False
+        ).order_by('-pk')[0:50]
 
 
 

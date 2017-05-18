@@ -113,3 +113,44 @@ class ProcessGetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Process
         fields = '__all__'
+
+
+class ProcessNowListSerializer(serializers.ModelSerializer):
+    """Serializador para listar Process con su pk"""
+
+    class Meta:
+        model = Process
+        fields = (
+            'pk',
+            'bussinesunit',
+            'name',
+            'attendant',
+            'responsible',
+            'created',
+            'date_created',
+            'date_started',
+            'finished',
+            'close',
+            'budget_estimated',
+            'budget_real'
+        )
+
+class ProcessNameListSerializer(serializers.ModelSerializer):
+    """Serializador para listar Process con su nombre """
+    name = serializers.CharField()
+    class Meta:
+        model = Process
+        fields = (
+            'pk',
+            'bussinesunit',
+            'name',
+            'attendant',
+            'responsible',
+            'created',
+            'date_created',
+            'date_started',
+            'finished',
+            'close',
+            'budget_estimated',
+            'budget_real'
+        )

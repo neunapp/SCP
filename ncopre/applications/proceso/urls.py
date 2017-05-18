@@ -35,6 +35,13 @@ urlpatterns = [
         name='proceso-por-unidadnegocio_list'
     ),
 
+    #url lista procesos recientes
+    url(
+        r'^procesounidadnegocioreciente/listar/(?P<pk>\d+)/$',
+        views.ProcessNowBunitView.as_view(),
+        name='proceso-reciente-unidadnegocio_list'
+    ),
+
     #rest de Unidad de negocio
     url(r'^', include('applications.proceso.services_urls', namespace="UnidadNegocio_servis_url")),
 ]

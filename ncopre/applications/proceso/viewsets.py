@@ -13,8 +13,11 @@ from .serializers import (
     ProcessAddSerializer,
     BussinesUnitUpdateStateAnulateSerializer,
     ProcessListSerializer,
+    ProcessNameListSerializer,
+    ProcessNowListSerializer,
     ProcessGetSerializer,
 )
+
 from .models import BussinesUnit, Process
 
 # import from other application
@@ -155,8 +158,31 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
     """viewset para listar filtros para proceso por unidad de negocio"""
 
     serializer_class = ProcessListSerializer
+
     def get_queryset(self):
         pk=self.kwargs['pk']
         flat = self.kwargs['flat']
         queryset=Process.objects.proceso_filtro(pk, flat)
+        return queryset
+
+
+class ProcesoNowUnidadNegocioViewSet(viewsets.ModelViewSet):
+    """viewset para listar 50 primeros elementos creados"""
+
+    serializer_class = ProcessNowListSerializer
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset =Process.objects.proceso_todos(pk)[0:50]
+        return queryset
+
+
+
+class ProcesoNameUnidadNegocioViewSet(viewsets.ModelViewSet):
+    """viewset para listar procesos por nombre"""
+
+    serializer_class = ProcessNameListSerializer
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        name = self.kwargs['name']
+        queryset = Process.objects.proceso_pruebanombre(pk, name)
         return queryset
