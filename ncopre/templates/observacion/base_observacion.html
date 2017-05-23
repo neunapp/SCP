@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load  staticfiles %}
+
+{% block css %}
+  <link href="{% static 'css/font-awesome.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock css %}
+
+{% block js %}
+  <script src="{% static 'js/vendor/jquery.js' %}"></script>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <!-- archivos angular js-->
+  <script src="{% static 'js/angular.min.js' %}"></script>
+  <script src="{% static 'js/angular-cookies.js' %}"></script>
+  <script src="{% static 'angularApp/common/common.services.js' %}"></script>
+  <script src="{% static 'angularApp/app.js' %}"></script>
+  <!-- Controladores para Servicios-->
+  <script src="{% static 'angularApp/common/services/miscelanea/observation.services.js' %}"></script>
+  <!-- Controladores para aplicacion miscelanea-->
+  <script src="{% static 'angularApp/app/Observacion/observacion_listCtrl.js' %}"></script>
+  <script src="{% static 'angularApp/app/Observacion/observacion_addCtrl.js' %}"></script>
+{% endblock js %}

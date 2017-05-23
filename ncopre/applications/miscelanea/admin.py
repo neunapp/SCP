@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+
+
+#local
+from .models import Observation
+
+admin.site.register(Observation)
+

@@ -1,0 +1,61 @@
+{% extends "observacion/base_observacion.html" %}
+
+{% block title %}listar y agregar Observaciones{% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+    <div ng-app="CopreApp" >
+     ------------------------<br>
+               {{ object.name }} <br/>
+     ------------------------<br>
+    Check para agregar nueva observacion: <input type="checkbox" ng-model="myVar" ng-init="myVar = false">
+         <div ng-if="myVar" ng-controller="ObservationAddCtrl as self">
+             Tipo de Observacion:
+               <select ng-model="self.type_observation">
+                 <option value="0">Alta</option>
+                 <option value="1">Media</option>
+                 <option value="2">Baja</option>
+               </select>
+
+               <textarea ng-model="self.description" name="" id="" cols="30" rows="10"></textarea>
+               <button ng-click="self.observation_add({{ object.pk }})">Agregar</button>
+            </div>
+         <div ng-controller="ObservationListCtrl as self"  ng-init="self.observation_lista({{ object.pk }})" style="border-style: solid; border-width: 1px" >
+             <div style="border-style: solid; border-width: 1px">
+               <div ng-repeat="u in self.observation"  >
+                 <div  ng-if="u.type_observation == 0" >
+                    {$ u.process $}
+                    {$ u.description $}
+                    alta
+                    <button onclick="window.location.reload();" ng-click ="self.observation_stateupdate(u.pk , 'True')" >Anular</button>
+                 </div>
+               </div>
+             </div>
+             <div style="border-style: solid; border-width: 1px">
+               <div ng-repeat="u in self.observation" >
+                 <div ng-if="u.type_observation == 1" >
+                    {$ u.process $}
+                    {$ u.description $}
+                    media
+                    <button onclick="window.location.reload();" ng-click ="self.observation_stateupdate(u.pk , 'True')" >Anular</button>
+                 </div>
+               </div>
+             </div>
+             <div style="border-style: solid; border-width: 1px">
+               <div ng-repeat="u in self.observation" >
+                 <div ng-if="u.type_observation == 2" >
+                    {$ u.process $}
+                    {$ u.description $}
+                    baja
+                    <button onclick="window.location.reload();" ng-click ="self.observation_stateupdate(u.pk , 'True')" >Anular</button>
+                 </div>
+               </div>
+             </div>
+         </div>
+         </div>
+
+    </div>
+
+{% endblock %}

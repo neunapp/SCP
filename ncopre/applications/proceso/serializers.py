@@ -53,6 +53,7 @@ class BussinesUnitUpdateSerializer(serializers.ModelSerializer):
          )
 
 
+
 class BussinesUnitUpdateStateAnulateSerializer(serializers.ModelSerializer):
     """Serializador para actualizar estado de unidad de negocio"""
 
@@ -65,6 +66,7 @@ class BussinesUnitUpdateStateAnulateSerializer(serializers.ModelSerializer):
             'pk',
             'anulate'
         )
+
 
 
 class ProcessAddSerializer(serializers.ModelSerializer):
@@ -87,6 +89,7 @@ class ProcessAddSerializer(serializers.ModelSerializer):
         )
 
 
+
 class ProcessListSerializer(serializers.ModelSerializer):
     """Serializador para listar Process"""
 
@@ -107,12 +110,14 @@ class ProcessListSerializer(serializers.ModelSerializer):
         )
 
 
+
 class ProcessGetSerializer(serializers.ModelSerializer):
     """serializ para recuperar un proceso"""
 
     class Meta:
         model = Process
         fields = '__all__'
+
 
 
 class ProcessNowListSerializer(serializers.ModelSerializer):
@@ -135,8 +140,11 @@ class ProcessNowListSerializer(serializers.ModelSerializer):
             'budget_real'
         )
 
+
+
 class ProcessNameListSerializer(serializers.ModelSerializer):
     """Serializador para listar Process con su nombre """
+
     name = serializers.CharField()
     class Meta:
         model = Process

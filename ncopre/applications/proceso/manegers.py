@@ -1,6 +1,6 @@
 from django.db import models
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+
+from django.contrib.postgres.search import SearchVector
 
 
 class BussinesUnitManager(models.Manager):
@@ -18,8 +18,8 @@ class ProcessManager(models.Manager):
 
     def process_bunit(self, pk):
         return self.filter(
-            anulate = False,
-            bussinesunit = pk,
+            anulate=False,
+            bussinesunit=pk,
         )
 
     #procedimiento que lita procesos que estan en proceso
