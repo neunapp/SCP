@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.db.models import F, FloatField, Sum, Q, CharField
 from django.db.models.functions import Upper
 from django.contrib.postgres.search import (
@@ -7,7 +8,6 @@ from django.contrib.postgres.search import (
     SearchRank,
     TrigramSimilarity
 )
-
 
 
 class BussinesUnitManager(models.Manager):
@@ -55,8 +55,8 @@ class ProcessManager(models.Manager):
     #
     def process_bunit(self, pk):
         return self.filter(
-            anulate = False,
-            bussinesunit = pk,
+            anulate=False,
+            bussinesunit=pk,
         )
 
     #procedimiento que lita procesos que estan en proceso

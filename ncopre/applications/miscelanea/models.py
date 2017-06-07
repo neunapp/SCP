@@ -9,6 +9,9 @@ from applications.proceso.models import Process
 # django import
 from django.db import models
 
+#import managers
+
+from managers import MiscelaneaManager
 
 class Service(TimeStampedModel):
     """ Tabla para servicio """
@@ -55,7 +58,21 @@ class Observation(TimeStampedModel):
         blank=True,
         max_length=100,
     )
-
+    TYPE_OBSER = (
+        ('0', 'Alta'),
+        ('1', 'Media'),
+        ('2', 'Baja'),
+    )
+    type_observation = models.CharField(
+        'tipo observacion',
+        choices=TYPE_OBSER,
+        blank=True,
+        max_length=2,
+    )
+    anulate = models.BooleanField(
+        default=False,
+    )
+    objects = MiscelaneaManager()
     def __str__(self):
         return self.description
 

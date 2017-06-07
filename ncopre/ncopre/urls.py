@@ -19,8 +19,8 @@ urlpatterns = [
     url(r'^', include('applications.proceso.urls', namespace="proceso_app")),
     # urls para la aplicacion subproceso
     url(r'^', include('applications.subproceso.urls', namespace="subproceso_app")),
-    # urls para la aplicacion miscelanea
-    # url(r'^', include('applications.miscelanea.urls', namespace="miscelanea_app")),
+    # urls para la aplicacion observacion
+    url(r'^', include('applications.miscelanea.urls', namespace="miscelanea_app")),
 
 
 
