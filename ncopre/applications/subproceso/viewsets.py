@@ -11,10 +11,12 @@ from applications.proceso.models import Process
 from applications.item.models import DetailProcess, Item
 #impor local
 from .serializers import (
-    SubProcessAddSerializer,
+    GetProcessActivitySerializer,
     SubProcessSerializer,
     FieldSerializer,
 )
+#
+from .functions import get_activitys_process
 #
 from .models import (
     SubProcess,
@@ -22,24 +24,36 @@ from .models import (
     Field,
 )
 
-class SubProcessAddViewSet(viewsets.ViewSet):
+
+class GetProcessActivitys(viewsets.ModelViewSet):
+    """viewset que lista actividades de un proceso"""
+    serializer_class = GetProcessActivitySerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = get_activitys_process(pk)
+        return queryset
+
+
+class ActivityProcessAddViewSet(viewsets.ViewSet):
     """viewset para agregar sub proceso a un proceso"""
 
     def create(self, request):
-        serializado = SubProcessAddSerializer(data=request.data)
+        print 'Agregando actividad...'
+        serializado = SubProcessSerializer(data=request.data)
         if serializado.is_valid():
+            print '...'
             #recuperamos proceso y registramos sub proceso
             proceso = Process.objects.get(
-                pk=serializado.validated_data['sub_process']['pk_proceso'],
+                pk=serializado.validated_data['pk_proceso'],
             )
             #
             sub_proceso = SubProcess(
-                name=serializado.validated_data['sub_process']['name'],
-                description=serializado.validated_data['sub_process']['description'],
+                name=serializado.validated_data['name'],
+                description=serializado.validated_data['description'],
             )
             sub_proceso.save()
             print 'sub Proceso guarado'
-            print sub_proceso
             #registramos el detalle proceso relacion proceso sub proceso
             detalle_proceso = DetailProcess(
                 process=proceso,
@@ -47,44 +61,51 @@ class SubProcessAddViewSet(viewsets.ViewSet):
             )
             detalle_proceso.save()
             print 'detalle proceso guarado'
-            #Regisramos los campos clave o fields
-            detalle_campo_subprocesos = []
-            for f in serializado.validated_data['fields']:
-                field = Field(
-                    name=f['name'],
-                    type_field=f['type_field'],
-                    required=f['required'],
-                )
-                field.save()
-                'Field guarado'
-                #registramos la relacion con el proceso
-                field_sub_proceso = FieldsSubProcess(
-                    sub_process=sub_proceso,
-                    field=field,
-                )
-                field_sub_proceso.save()
-                print 'Detalle Campos sub proceso guarado'
-                #alamcen temporal de FieldsSubProcess para no consultar bd
-                detalle_campo_subprocesos.append(field_sub_proceso)
-
-            #registramos los item de cada Field
-            for i in serializado.validated_data['items']:
-                aux = 0
-                #determinamos a que Field pertenece
-                while aux >= 0:
-                    if i['field_key'] != detalle_campo_subprocesos[aux].field.name:
-                        aux = aux + 1
-                    else:
-                        aux = -1
-                        item = Item(
-                            detail_process=detalle_proceso,
-                            detail_camp_subprocess=detalle_campo_subprocesos[aux],
-                            value=i['value'],
-                        )
-                        item.save()
-
+            #
             print 'Sub Proceso guardado correctamente'
         else:
             print serializado.errors
 
         return Response()
+
+
+class FieldAddViewSet(viewsets.ViewSet):
+    """viewset para agregar Field o columna a un Subproceso"""
+
+    def create(self, request):
+        print 'Agregando field ...'
+        serializado = FieldSerializer(data=request.data)
+        if serializado.is_valid():
+            #agregamos el field
+            field = Field(
+                name=serializado.validated_data['name'],
+                type_field=serializado.validated_data['type_field'],
+                required=serializado.validated_data['required'],
+            )
+            field.save()
+            print 'Field guarado'
+            #recuperamos sub proceso
+            sub_process = SubProcess.objects.get(
+                pk=serializado.validated_data['sub_process']
+            )
+            #registramos la relacion con el proceso
+            field_sub_proceso = FieldsSubProcess(
+                sub_process=sub_process,
+                field=field,
+            )
+            field_sub_proceso.save()
+            print 'Detalle Campos sub proceso guarado'
+        else:
+            print serializado.errors
+
+        return Response()
+
+
+class GetSubProcessFields(viewsets.ModelViewSet):
+    """viewset que lista Fields de SubProcess"""
+    serializer_class = FieldSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        queryset = FieldsSubProcess.objects.get_subprocess_fields(pk)
+        return queryset

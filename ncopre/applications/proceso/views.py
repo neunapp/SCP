@@ -21,13 +21,11 @@ class BussinesUnitAddView(TemplateView):
     template_name = 'unidadnegocio/add.html'
 
 
-
 class BussinesUnitUpdateView(DetailView):
     """Vista para recuperar unidad de negocio"""
 
     model = BussinesUnit
     template_name = 'unidadnegocio/update.html'
-
 
 
 class BussinesUnitLitView(TemplateView):
@@ -37,13 +35,11 @@ class BussinesUnitLitView(TemplateView):
     template_name = 'unidadnegocio/list_bussinesUnit.html'
 
 
-
 class ProcessAddView(DetailView):
     """Vista para guardar tabla Proceso"""
 
     model = BussinesUnit
     template_name = 'proceso/add.html'
-
 
 
 class ProceessForBunitView(DetailView):
@@ -53,9 +49,11 @@ class ProceessForBunitView(DetailView):
     template_name = 'proceso/list_processbunit.html'
 
 
+class ProcesoSearchView(TemplateView):
+    """vista para buscar procesos"""
 
-class ProcessNowBunitView(DetailView):
-    """vista para mostrar los procesos recientes"""
+    template_name = 'proceso/search.html'
 
-    model = BussinesUnit
-    template_name = 'proceso/list_processnowbunit.html'
+
+class ProcessbyBissnesView(TemplateView):
+    template_name = 'proceso/index.html'

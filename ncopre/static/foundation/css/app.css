@@ -1,0 +1,22 @@
+.text_process_indicador_1 {
+  color: #9E9E9E;
+  padding-right: 0.5em;
+  padding-top: 0;
+  font-family:'Ubuntu', sans-serif;
+}
+
+.text_process_presupuesto {
+  color: #0D47A1;
+
+}
+
+.atribute_label {
+  color: black;
+  padding-left: 1.2em;
+  width: 100%;
+}
+
+.atribute_value {
+  color: #9E9E9E;
+  width: 100%;
+}

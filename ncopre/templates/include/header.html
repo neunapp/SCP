@@ -1,0 +1,29 @@
+
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="example-menu"></button>
+  <div class="title-bar-title">Menu</div>
+</div>
+
+<div class="top-bar" id="example-menu">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Copre</li>
+      <li><a href="#"><i class="fa fa-user-circle-o" aria-hidden="true"></i></a></li>
+      <li><a href="#"><i class="fa fa-bell" aria-hidden="true"></i></a></li>
+      <li>
+        <a href="#"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+        <ul class="menu vertical">
+          <li><a href="{% url 'proceso_app:proceso-search' %}">Proceso</a></li>
+          <li><a href="#">Unidad de negocio</a></li>
+          <li><a href="#">Usuario</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="top-bar-right">
+    <ul class="menu">
+      <li><input type="search" placeholder="Buscar ..."></li>
+      <li><button type="button" class="button">Buscar</button></li>
+    </ul>
+  </div>
+</div>

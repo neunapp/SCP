@@ -67,6 +67,18 @@ class BussinesUnitUpdateStateAnulateSerializer(serializers.ModelSerializer):
         )
 
 
+class ProcessSerializer(serializers.ModelSerializer):
+    """serializador para proceso"""
+
+    bussinesunit = serializers.CharField()
+    attendant = serializers.CharField()
+    responsible = serializers.CharField()
+
+    class Meta:
+        model = Process
+        fields = '__all__'
+
+
 class ProcessAddSerializer(serializers.ModelSerializer):
     """Seriazlizador para agregar proceso"""
 
@@ -78,12 +90,13 @@ class ProcessAddSerializer(serializers.ModelSerializer):
         fields = (
             'bussinesunit',
             'name',
+            'origin',
+            'destination',
             'attendant',
             'responsible',
             'date_start',
             'date_end',
             'budget_estimated',
-            'budget_real'
         )
 
 
@@ -108,14 +121,14 @@ class ProcessListSerializer(serializers.ModelSerializer):
 
 
 class ProcessGetSerializer(serializers.ModelSerializer):
-    """serializ para recuperar un proceso"""
+    """serializ para recuperar y serializr un proceso"""
 
     class Meta:
         model = Process
         fields = '__all__'
 
 
-class ProcessNowListSerializer(serializers.ModelSerializer):
+class ProcessRecentSerializer(serializers.ModelSerializer):
     """Serializador para listar Process con su pk"""
 
     class Meta:
@@ -134,6 +147,7 @@ class ProcessNowListSerializer(serializers.ModelSerializer):
             'budget_estimated',
             'budget_real'
         )
+
 
 class ProcessNameListSerializer(serializers.ModelSerializer):
     """Serializador para listar Process con su nombre """
@@ -154,3 +168,10 @@ class ProcessNameListSerializer(serializers.ModelSerializer):
             'budget_estimated',
             'budget_real'
         )
+
+
+class ProcessByBusinessSerializer(serializers.Serializer):
+    """serializador para procesos agrupados por unidad de negocio"""
+
+    unida_negocio = serializers.CharField()
+    procesos = ProcessSerializer(many=True)

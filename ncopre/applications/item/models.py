@@ -13,12 +13,17 @@ from applications.proceso.models import Process
 #local model sub proceso
 from applications.subproceso.models import SubProcess, FieldsSubProcess
 
+#local
+from .managers import DetailProcessManager
+
 
 class DetailProcess(TimeStampedModel):
     """ Modelo para Detalle Proeso """
 
     process = models.ForeignKey(Process)
     sub_process = models.ForeignKey(SubProcess)
+
+    objects = DetailProcessManager()
 
     def __str__(self):
         return str(self.process)

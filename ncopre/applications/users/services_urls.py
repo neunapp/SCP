@@ -8,7 +8,7 @@ from . import viewsets
 urlpatterns = [
     #listar usuarios
     url(
-        r'^api/userproceso/list/$',
+        r'^api/user-list/$',
         viewsets.ListUserViewSet.as_view({'get': 'list'}),
         name='api-procesoUsuario_list'
     ),

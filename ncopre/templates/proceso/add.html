@@ -1,30 +1,70 @@
 {% extends "proceso/base_proceso.html" %}
 
-{% block title %}Agregar{% endblock %}
+{% block title %}  Agregar Proceso - Copre {% endblock %}
 
 {% load  staticfiles%}
+
 {% block content %}
-<body>
 
-    <p> Agregar proceso</p>
-<div ng-app="CopreApp" ng-controller="ProcesoAddCtrl as self" ng-init="self.procesousuario_list()">
-    <p>Nombre<input type="text" ng-model="self.name"></p>
-    <p>Fecha Inicio<input type="text" ng-model="self.date_start"> </p>
-    <p>Fecha Fin<input type="text" ng-model="self.date_end">  </p>
-    <p>Presupuesto estimado<input type="text" ng-model="self.budget_estimated">  </p>
-    <p>Presupuesto real<input type="text" ng-model="self.budget_real">  </p>
-
-
-
-<select ng-model="self.responsible">
-          <option ng-repeat="c in self.proceso_usuario" value="{$ c.pk $}">{$ c.username $}</option>
-</select>
-
-<select ng-model="self.attendant">
-          <option ng-repeat="t in self.proceso_usuario" value="{$ t.pk $}">{$ t.username $}</option>
-</select>
-
-    <button ng-model="self.guardar" ng-click="self.proceso_add({{ object.pk }})"> guardar</button>
+  {% include "include/header.html" %}
+  <main ng-app="CopreApp" ng-controller="ProcesoAddCtrl as self" ng-init="self.users_list()">
+    <div class="callout">
+      <h5>Registrar Nuevo Proceso - {{object.razon_social}}</h5>
+      <form method="post">
+        <div class="row">
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Nombre
+              <input type="text" ng-model="self.name" placeholder="nombre del proceso ...">
+            </label>
+          </div>
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Presupuesto estimado
+              <input type="text" ng-model="self.budget_estimated" placeholder="1000">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Origen
+              <input type="text" ng-model="self.origin" placeholder="cusco ...">
+            </label>
+          </div>
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Destino
+              <input type="text" ng-model="self.destination" placeholder="lima ..">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Fecha Inicio
+              <input type="date" ng-model="self.date_start">
+            </label>
+          </div>
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Fecha Fin
+              <input type="date" ng-model="self.date_end">
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Responsable
+              <select ng-model="self.responsible">
+                <option ng-repeat="u1 in self.usuarios" value="{$ u1.pk $}">{$ u1.username $}</option>
+              </select>
+            </label>
+          </div>
+          <div class="small-12 medium-12 large-6 columns">
+            <label>Encargado
+              <select ng-model="self.attendant">
+                <option ng-repeat="u2 in self.usuarios" value="{$ u2.pk $}">{$ u2.username $}</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </form>
+      <a ng-model="self.guardar" ng-click="self.proceso_add({{ object.pk }})">Reistrar datos del proceso</a>
     </div>
-</body>
+  </main>
 {% endblock %}

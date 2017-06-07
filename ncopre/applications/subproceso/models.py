@@ -9,6 +9,8 @@ from model_utils.models import TimeStampedModel
 #django
 from django.utils.encoding import python_2_unicode_compatible
 
+#local
+from .managers import FieldsSubProcessManager
 
 @python_2_unicode_compatible
 class SubProcess(TimeStampedModel):
@@ -52,6 +54,8 @@ class FieldsSubProcess(TimeStampedModel):
 
     sub_process = models.ForeignKey('SubProcess')
     field = models.ForeignKey('Field')
+
+    objects = FieldsSubProcessManager()
 
     def __str__(self):
         return self.sub_process

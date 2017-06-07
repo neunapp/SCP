@@ -43,8 +43,9 @@ class BussinesUnit(TimeStampedModel):
     )
 
     objects = BussinesUnitManager()
+
     def __str__(self):
-        return self.ruc
+        return self.razon_social
 
 
 class Process(TimeStampedModel):
@@ -148,6 +149,8 @@ class Process(TimeStampedModel):
     anulate = models.BooleanField(
         default=False
     )
+
     objects = ProcessManager()
+
     def __str__(self):
         return str(self.name)

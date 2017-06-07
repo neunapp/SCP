@@ -8,11 +8,6 @@
           self.unidadnegocio_lista = function(){
             return $http.get("/api/unidadnegocio/list/");
           };
-          //servicio que lista unidades de negocio eliminadas
-          /*self.unidadnegocio_by_anulate = function(){
-            return $http.get("/api/unidadnegocio/list_anulados/");
-          };*/
-
 
           self.unidadnegocio_add = function(json) {
              return $http.post("/api/unidadnegocio/nuevo/", json)

@@ -1,0 +1,42 @@
+{% extends "home/base_home.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+  {% include "include/header.html" %}
+  <div class="callout large">
+    <div class="row align-center">
+      <div class="small-12 medium-6 columns">
+        <div class="input-group">
+          <span class="input-group-label"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input class="input-group-field" type="text">
+          <div class="input-group-button">
+            <input type="submit" class="button" value="Buscar">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 large-3 column">
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">Nombre del Proceso</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>{$ p.origin $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>{$ p.destination $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>{$ p.date_started |date$}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>{$ p.date_end|date $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. {$ p.budget_estimated $}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "include/footer.html" %}
+{% endblock %}

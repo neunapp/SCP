@@ -1,0 +1,35 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+  {% include "include/header.html" %}
+
+  <div class="callout" ng-app="CopreApp" ng-controller="ProcesoListCtrl as self" ng-init="self.process_by_bussiness()">
+    <div class="callout" ng-repeat="bussines in self.lits_process">
+      <h3 class="subheader">{$ bussines.unida_negocio $}</h3>
+      <div class="row">
+        <div class="small-12 medium-6 large-3 column" ng-repeat="p in bussines.procesos">
+          <div class="card">
+            <div class="card-divider">
+              <a href="/sub-proceso/agregar/{$ p.id $}"><h5 class="text-center">{$ p.name $}</h5></a>
+            </div>
+            <div class="card-section">
+              <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>{$ p.origin $}</p>
+              <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>{$ p.destination $}</p>
+              <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>{$ p.date_start |date$}</p>
+              <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>{$ p.date_end|date $}</p>
+              <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Iniciado:</span>{$ p.started $}</p>
+              <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. {$ p.budget_estimated $}</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% include "include/footer.html" %}
+{% endblock %}

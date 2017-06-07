@@ -1,12 +1,16 @@
 (function(){
     "use strict";
     angular.module("CopreApp")
-        .controller("ProcesoListCtrl", ['procesoservice', ProcesoListCtrl]);
+        .controller("ProcesoListCtrl", ['procesoservice','unidadnegocioservice',
+                      ProcesoListCtrl]);
 
-    function ProcesoListCtrl(procesoservice){
+    function ProcesoListCtrl(procesoservice,unidadnegocioservice){
         var self = this;
 
-        //funcion que lista proceso por undada de negocoi
+        //variables globales
+        self.flat_new_process = false;
+
+        //funcion que lista proceso por undada de negocio
         self.procesobunit_list = function (pk) {
             procesoservice.procesobunit_list(pk)
              .then(function(response){
@@ -22,25 +26,59 @@
                 })
         };
 
+        //----------------------------------------------------------------------
 
+        //funcion que lista unid de negocio
+        self.unidadnegocio_lista = function(){
+          unidadnegocioservice.unidadnegocio_lista()
+              .then(function (response) {
+                  self.bussiness = response.data;
+                }
+              )
+        }
         //funcion que lista procesos recientes
-        self.procesoreciente_list = function (pk) {
-            procesoservice.procesoreciente_list(pk)
+        self.process_recent = function () {
+            //listamos unidad de negocio
+            self.unidadnegocio_lista();
+            //consulta a bd
+            procesoservice.process_recent()
                 .then(function (response) {
-                    self.procesoreciente = response.data;
-
-                })
-
+                    self.lits_process = response.data;
+                  }
+                )
         };
-
 
         //proceso que filtra procesos por nombre
-        self.procesonombre_list = function (pk, name) {
-            procesoservice.procesonombre_list(pk, name)
-                .then(function (response) {
-                    self.procesonombre = response.data;
-                })
+        self.process_search = function (name) {
+          console.log('entro aquisito 2');
+            //convertimos el valor name a kword para url
+            var kword = '';
+            for (var i = 0; i < name.split(" ").length; i++) {
+              if (kword == '') {
+                kword = name.split(" ")[i];
+              }
+              else {
+                kword = kword +'-'+ name.split(" ")[i];
+              }
+
+            }
+            //re-inicializamos
+            self.search = '';
+            //consultamos al servidor
+            procesoservice.process_search(kword)
+              .then(function (response) {
+                  self.lits_process = response.data;
+              })
         };
+
+        //funcion que lista procesos agrupados por unidad de negocio
+        self.process_by_bussiness = function(){
+            procesoservice.process_by_bussiness()
+              .then(function(response) {
+                  self.lits_process = response.data;
+              }
+            );
+        }
 
     }
 

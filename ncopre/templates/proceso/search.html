@@ -1,0 +1,58 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+  {% include "include/header.html" %}
+<main ng-app="CopreApp" ng-controller="ProcesoListCtrl as self" ng-init="self.process_recent()">
+  <div class="callout large">
+    <div class="row align-center">
+      <div class="small-12 medium-6 columns">
+        <div class="input-group">
+          <span class="input-group-label"><i class="fa fa-search" aria-hidden="true"></i></span>
+          <input class="input-group-field" ng-model="self.search" type="text">
+          <div class="input-group-button">
+            <input type="submit" ng-model="self.searc2" ng-click="self.process_search(self.search)" class="button" value="Buscar">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row align-center">
+      <p>
+        Elija una plantilla de proceso o creé un <a ng-click="self.flat_new_process = !self.flat_new_process">Proceso Nuevo</a>
+      </p>
+    </div>
+    <div class="row align-center" ng-show="self.flat_new_process">
+      <div class="callout">
+        <h5>Seleccione unidad de negocio</h5>
+        <select ng-model="self.bussinesunit">
+          <option ng-repeat="b in self.bussiness" value="{$ b.pk $}">{$ b.razon_social $}</option>
+        </select>
+          <a href="/proceso/add/{$ self.bussinesunit $}">Crear Nuevo</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="small-12 medium-6 large-3 column" ng-repeat="p in self.lits_process | filter:self.search">
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">{$ p.name $}</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>{$ p.origin $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>{$ p.destination $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>{$ p.date_started |date$}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>{$ p.date_end|date $}</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. {$ p.budget_estimated $}</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+  {% include "include/footer.html" %}
+{% endblock %}

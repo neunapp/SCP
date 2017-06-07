@@ -35,11 +35,19 @@ urlpatterns = [
         name='proceso-por-unidadnegocio_list'
     ),
 
-    #url lista procesos recientes
+    #-------------------------------- urls pantilla nueva --------------------------------------
+    #url pagina de usuario por defecto
     url(
-        r'^procesounidadnegocioreciente/listar/(?P<pk>\d+)/$',
-        views.ProcessNowBunitView.as_view(),
-        name='proceso-reciente-unidadnegocio_list'
+        r'^proceso-por/unidad-de-negocio/$',
+        views.ProcessbyBissnesView.as_view(),
+        name='proceso-index'
+    ),
+
+    #urla para buscar procesos
+    url(
+        r'^proceso-agregar/buscar/$',
+        views.ProcesoSearchView.as_view(),
+        name='proceso-search'
     ),
 
     #rest de Unidad de negocio
