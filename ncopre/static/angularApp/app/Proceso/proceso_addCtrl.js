@@ -33,5 +33,17 @@
                 self.proceso_usuario = response.data;
             });
         };
+
+        self.procesostate_change = function (pk, alternative) {
+            var json = {
+                'pk':pk,
+                'alternative':alternative
+            };
+            console.log(json);
+            console.log(procesoservice.procesostate_change(json));
+            console.log('agregado correctamente')
+
+
+        }
     }
 }());

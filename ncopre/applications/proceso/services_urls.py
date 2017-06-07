@@ -80,4 +80,11 @@ urlpatterns = [
         viewsets.ProcesoNowUnidadNegocioViewSet.as_view({'get': 'list'}),
         name='api-procesoreciente_list'
     ),
+
+    #guardar estados proceso
+    url(
+        r'^api/procesoestado/cambiar/$',
+        viewsets.ProcessStateChangeViewSet.as_view({'post': 'create'}),
+        name='api-procesoestado_update'
+    ),
 ]

@@ -1,0 +1,19 @@
+{% extends "observacion/base_observacion.html" %}
+
+{% block title %}Agregar{% endblock %}
+
+{% load  staticfiles%}
+{% block content %}
+<body>
+
+    <p> Agregar proceso</p>
+    <div ng-app="CopreApp" ng-controller="ServiceAddCtrl as self">
+    <p>Nombre<input type="text" ng-model="self.name"></p>
+    <p>Ruc<input type="text" ng-model="self.ruc"> </p>
+     <p>razon Social <input type="text" ng-model="self.razon_social">   </p>
+    <p>Telefono<input type="text" ng-model="self.phone">  </p>
+    <p>Descripcion<input type="text" ng-model="self.description">  </p>
+    <button ng-model="self.guardar" ng-click="self.service_add({{ object.pk }})"> guardar</button>
+    </div>
+</body>
+{% endblock %}

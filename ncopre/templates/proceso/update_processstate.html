@@ -1,0 +1,31 @@
+{% extends "proceso/base_proceso.html" %}
+
+{% block title %} Cambiar de estado {% endblock %}
+
+{% load  staticfiles%}
+{% block content %}
+    <h1>{{object.name}}</h1>
+<body>
+<div ng-app="CopreApp" ng-controller="ProcesoAddCtrl as self" >
+{{ object.pk }}-
+{{object.created}}-
+{{object.finished}}-
+{{object.close}}-
+{{object.started}}-
+{{object.anulate}}
+
+    <br/>
+    <button ng-model="self.created" ng-click="self.procesostate_change({{ object.pk }}, 'created' )"> created</button>
+    -
+    <button ng-model="self.finished" ng-click="self.procesostate_change({{ object.pk }}, 'finished')"> finished</button>
+    -
+    <button ng-model="self.close" ng-click="self.procesostate_change({{ object.pk }}, 'close')"> close</button>
+    -
+    <button ng-model="self.started" ng-click="self.procesostate_change({{ object.pk }}, 'started')"> started</button>
+    -
+    <button ng-model="self.anulate" ng-click="self.procesostate_change({{ object.pk }}, 'anulate')"> anulate</button>
+
+
+    </div>
+</body>
+{% endblock %}

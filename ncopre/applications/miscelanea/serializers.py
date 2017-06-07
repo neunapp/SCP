@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 #libreria local
-from models import Observation
+from models import Observation, Service
 
 
 
@@ -48,4 +48,24 @@ class ObservationAddSerializer(serializers.ModelSerializer):
            'description',
            'type_observation',
         )
+
+
+
+
+class ServiceAddThirdSerializer(serializers.ModelSerializer):
+    """registrar empresasa de terceros"""
+
+    process = serializers.CharField()
+    class Meta:
+
+        model = Service
+        fields = (
+            'name',
+            'ruc',
+            'razon_social',
+            'phone',
+            'description',
+            'process'
+        )
+
 

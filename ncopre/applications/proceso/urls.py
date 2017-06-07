@@ -42,6 +42,17 @@ urlpatterns = [
         name='proceso-reciente-unidadnegocio_list'
     ),
 
+    #url actualiza estados de un proces
+    url(
+        r'^procesocambiarestado/cambiar/(?P<pk>\d+)/$',
+        views.ProcessStateChangeView.as_view(),
+        name='proceso-cambiarestado_list'
+    ),
+
+
+
+
+
     #rest de Unidad de negocio
     url(r'^', include('applications.proceso.services_urls', namespace="UnidadNegocio_servis_url")),
 ]

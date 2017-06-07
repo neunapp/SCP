@@ -44,6 +44,20 @@
           self.procesonombre_list = function (pk, name) {
               return $http.get("/api/procesonombre/listar/"+pk+"/"+name+"/");
           };
+
+          
+          //cambiar estados de un proceso
+          self.procesostate_change = function (json) {
+            return $http.post("/api/procesoestado/cambiar/", json)
+                .success(function(res){
+                  return res.id;
+                  //$location.href
+                })
+                .error(function(res){
+                  return '0'
+               });
+          };
+
           return self;
         }
 

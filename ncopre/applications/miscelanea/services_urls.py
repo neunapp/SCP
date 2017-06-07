@@ -26,4 +26,10 @@ urlpatterns = [
         name='api_observation-add-list'
     ),
 
+    #agreaga servicio y actualiza proceso
+    url(r'^api/servicio/add/$',
+        viewsets.ServiceAddThirdViewSet.as_view({'post': 'create'}),
+        name='api_servicio-add-list'
+    ),
+
 ]

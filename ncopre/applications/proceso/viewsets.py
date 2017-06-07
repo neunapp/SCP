@@ -16,6 +16,7 @@ from .serializers import (
     ProcessNameListSerializer,
     ProcessNowListSerializer,
     ProcessGetSerializer,
+    ProcessStateChangeSerializer
 )
 
 from .models import BussinesUnit, Process
@@ -137,9 +138,8 @@ class ProcessGetViewSet(viewsets.ViewSet):
     """servicio para recuperar un Proceso por pk"""
 
     def retrieve(self, request, pk=None):
-        #recuperaos proceso por nombre
         proceso = get_object_or_404(Process, pk=pk)
-        serializer = ProcessGetSerializer(proceso,context={'request': request})
+        serializer = ProcessGetSerializer(proceso, context={'request': request})
         return Response(serializer.data)
 
 
@@ -154,6 +154,7 @@ class ProcessListForBussinesUnitViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+
 class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
     """viewset para listar filtros para proceso por unidad de negocio"""
 
@@ -164,6 +165,7 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
         flat = self.kwargs['flat']
         queryset=Process.objects.proceso_filtro(pk, flat)
         return queryset
+
 
 
 class ProcesoNowUnidadNegocioViewSet(viewsets.ModelViewSet):
@@ -186,3 +188,42 @@ class ProcesoNameUnidadNegocioViewSet(viewsets.ModelViewSet):
         name = self.kwargs['name']
         queryset = Process.objects.proceso_pruebanombre(pk, name)
         return queryset
+
+
+
+class ProcessStateChangeViewSet(viewsets.ViewSet):
+    """viewset para actualizar estados del Proceso"""
+
+    def create(self, request):
+
+        serializado = ProcessStateChangeSerializer(data=request.data)
+
+        if serializado.is_valid():
+            pk = Process.objects.get(pk=serializado.validated_data['pk'])
+            alternative = serializado.validated_data['alternative']
+            if alternative == 'created':
+                pk.created = Process.objects.validator_check(pk.created)
+                pk.save()
+            elif alternative == 'finished':
+                pk.finished = Process.objects.validator_check(pk.finished)
+                pk.save()
+            elif alternative == 'close':
+                pk.close = Process.objects.validator_check(pk.close)
+                pk.save()
+            elif alternative == 'started':
+                pk.started = Process.objects.validator_check(pk.started)
+                pk.save()
+            elif alternative == 'anulate':
+                pk.anulate = Process.objects.validator_check(pk.anulate)
+                pk.save()
+            print 'process guardado'
+        else:
+            print serializado.errors
+
+        return Response()
+
+
+
+
+
+

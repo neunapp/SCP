@@ -20,3 +20,10 @@ class ProcessDetailMisceleaView(DetailView):
     model = Process
     template_name = 'observacion/list_observacion.html'
 
+
+
+class ServiceProcessView(DetailView):
+    """agregar un nuevo servicio y actualizar proceso"""
+
+    model = Process
+    template_name = 'observacion/servicioadd.html'

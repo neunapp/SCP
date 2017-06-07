@@ -138,14 +138,18 @@ class Process(TimeStampedModel):
         settings.AUTH_USER_MODEL,
         related_name='created_proceso',
         blank=True
-
     )
     modified_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='modified_proceso',
         blank=True
     )
+    Third = models.BooleanField(
+        'teecero',
+        default=False
+    )
     anulate = models.BooleanField(
+        'anulados',
         default=False
     )
     objects = ProcessManager()

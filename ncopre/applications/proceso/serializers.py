@@ -162,3 +162,22 @@ class ProcessNameListSerializer(serializers.ModelSerializer):
             'budget_estimated',
             'budget_real'
         )
+
+
+
+class ProcessStateChangeSerializer(serializers.ModelSerializer):
+    """actualizar estados de un proceso"""
+
+    pk = serializers.CharField()
+    alternative = serializers.CharField()
+
+    class Meta:
+        model = Process
+        fields = (
+           'pk',
+           'alternative'
+        )
+
+
+
+

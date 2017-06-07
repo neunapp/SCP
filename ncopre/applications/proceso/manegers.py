@@ -68,4 +68,12 @@ class ProcessManager(models.Manager):
         ).order_by('-pk')[0:50]
 
 
+    #proceso para cambiar boleano
+    def validator_check(self, bool):
+        if bool:
+            return False
+        else:
+            return True
+
+
 

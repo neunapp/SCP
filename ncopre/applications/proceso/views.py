@@ -11,7 +11,7 @@ from django.views.generic import (
 )
 
 #local imports
-from .models import BussinesUnit
+from .models import BussinesUnit, Process
 
 
 
@@ -59,3 +59,10 @@ class ProcessNowBunitView(DetailView):
 
     model = BussinesUnit
     template_name = 'proceso/list_processnowbunit.html'
+
+
+class ProcessStateChangeView(DetailView):
+    """vista para mostrar los datos de un proceso"""
+
+    model = Process
+    template_name = 'proceso/update_processstate.html'

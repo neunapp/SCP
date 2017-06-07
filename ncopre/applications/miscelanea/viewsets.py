@@ -7,10 +7,13 @@ from rest_framework.response import Response
 from .serializers import (
     ObservationListSerializer,
     ObservationStateUpdateSerializer,
-    ObservationAddSerializer
+    ObservationAddSerializer,
+    ServiceAddThirdSerializer
 )
 
-from .models import Observation
+from .models import Observation, Service
+
+from applications.proceso.models import Process
 
 
 
@@ -34,7 +37,7 @@ class ObservationStateUpdateViewSet(viewsets.ViewSet):
             observation = Observation.objects.get(pk=serializado.validated_data['pk'])
             observation.anulate = serializado.validated_data['anulate']
             observation.save()
-            print 'Observacion estado actualizado'
+            print 'Miscelanea estado actualizado'
         else:
             print serializado.errors
 
@@ -48,13 +51,42 @@ class ObservationAddViewSet(viewsets.ViewSet):
     def create(self, request):
         serializado = ObservationAddSerializer(data=request.data)
         if serializado.is_valid():
+
             observation = Observation(
                process=serializado.validated_data['process'],
                description=serializado.validated_data['description'],
                type_observation =serializado.validated_data['type_observation'],
             )
             observation.save()
-            print "Observacion guardada"
+            print "Miscelanea guardada"
+        else:
+            print serializado.errors
+
+        return Response()
+
+
+
+class ServiceAddThirdViewSet(viewsets.ViewSet):
+    """viewset para registar procesos por terceros"""
+
+    def create(self, request):
+        serializado = ServiceAddThirdSerializer(data=request.data)
+
+        if serializado.is_valid():
+            process = Process.objects.get(pk=serializado.validated_data['process'])
+            process.Third=True
+            process.save()
+            service = Service(
+                name=serializado.validated_data['name'],
+                ruc=serializado.validated_data['ruc'],
+                razon_social=serializado.validated_data['razon_social'],
+                phone=serializado.validated_data['phone'],
+                description=serializado.validated_data['description'],
+                process=process,
+            )
+            service.save()
+
+            print "Service guardada"
         else:
             print serializado.errors
 
