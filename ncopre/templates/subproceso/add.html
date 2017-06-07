@@ -1,69 +1,163 @@
 {% extends "subproceso/base_subproceso.html" %}
 
-{% block title %}Agregar sub proceso para {{object.name}}{% endblock %}
+{% block title %}  Actividade de proceso {{object.name}}  {% endblock %}
 
 {% load  staticfiles%}
+
 {% block content %}
 
-  <div ng-app="CopreApp" ng-controller="SubprocesoAddCtrl as self">
-    <div class="columnas">
-      <p>
-        <h1> {{object.name}} </h1>
-      </p>
-    </div>
-    <p>
-      Nombre:<input type="text" name="name" ng-model="self.name_subproceso">
-    </p>
-    <p>
-      Descripcion:<input type="text" name="name" ng-model="self.description_subproceso">
-    </p>
-    <p>
-      -----------------------------------------------------------
-    </p>
-    <div>
-      Nombre: <input type="text" ng-model="self.name_field">
-      Tipo de Campo:
-      <select ng-model="self.type_field">
-        <option value="S">Texto</option>
-        <option value="I">Numero Entero</option>
-        <option value="D">Numero con Decimales</option>
-      </select>
-      Obligatorio: <input type="checkbox" ng-model="self.required_field">
-    </div>
-    <button type="button" name="button" ng-click="self.columns_add()">Nueva Columna</button>
-    <p>
-      ****************************************************
-    </p>
-    <table border="3">
-      <thead>
-        <tr>
-          <th ng-repeat="f in self.fields">
-            {$ f.name $}
-          </th>
-        </tr>
-      </thead>
-    </table>
-    <p>
-      ====================================
-    </p>
-    <table border="1">
-      <tbody>
-        <tr ng-repeat="i in self.items">
-          <td ng-repeat="c in i.colums">
-            <input type="text" name="name" ng-model="c.valor[c.id]">
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <div>
-      <button type="button" name="button" ng-click="self.rows_add()">Nueva Fila</button>
-    </div>
-    <p>
-      ###################################
-    </p>
-    <button type="button" name="button" ng-click="self.subproceso_add({{object.pk}})">Completar Proceso</button>
+  {% include "include/header.html" %}
+<main >
+  <div class="callout large" ng-app="CopreApp" ng-controller="SubprocesoAddCtrl as self" ng-init="self.get_process_activitys({{object.pk}})">
+    <ul class="accordion" data-accordion data-allow-all-closed="true">
+      <li class="accordion-item" data-accordion-item>
+        <!-- Accordion tab title -->
+        <a href="#" class="accordion-title"><h4>{{object.name}} - {{object.bussinesunit}}</h4></a>
+        <div class="accordion-content" data-tab-content>
+          <table class="stack">
+            <tr>
+              <td>
+                <span class="atribute_label">Fecha de inicio:</span><span class="atribute_value">{{object.date_start}}</span>
+              </td>
+              <td>
+                <span class="atribute_label">Fecha de culmino:</span><span class="atribute_value">{{object.date_end}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="atribute_label">Control por: </span><span class="atribute_value">{{object.attendant}}</span>
+              </td>
+              <td>
+                <span class="atribute_label">Usuario Responsable: </span><span class="atribute_value">{{object.responsible}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="atribute_label">Presupuesto Estimado:</span><span class="atribute_value">{{object.budget_estimated}}</span>
+              </td>
+              <td>
+                <span class="atribute_label">Presupuesto Real:</span><span class="atribute_value">{{object.budget_real}}</span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <span class="atribute_label">Lugar de Origen: </span><span class="atribute_value">{{object.origin}}</span>
+              </td>
+              <td>
+                <span class="atribute_label">Lugar Destino: </span><span class="atribute_value">{{object.destination}}</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </li>
+    </ul>
 
+    <h4>Actividades del Proceso <a ng-click="self.show_form(1)"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
+    <!-- Bloque de formulario actividades del proceso -->
+      <div class="callout small-12 medium-6" ng-show="self.show_aad_avtivity">
+        <h3>Indica la Actividad</h3>
+          <div class="row">
+            <div class="small-12 medium-6 columns">
+              <label>Nombre
+                <input type="text" ng-model="self.name_subproceso" placeholder="combistible..">
+              </label>
+            </div>
+            <div class="small-12 medium-6 columns">
+              <label>Descripcion
+                <input type="text" ng-model="self.description_subproceso" placeholder="Cargar Cusco Lima">
+              </label>
+            </div>
+          </div>
+          <div class="row small-12 large-offset-2 columns">
+            <button class="button" ng-model="self.agregar_actividad"
+              ng-click="self.activityproceso_add({{object.pk}})">
+              Agregar la actividad
+            </button>
+            <button class="button" ng-model="self.agregar_actividad"
+              ng-click="self.show_form(3)">
+              Cancelar
+            </button>
+          </div>
+      </div>
+    <!-- Fin de bloque formulario de actividades del proceso-->
+
+
+    <div class="callout large" ng-repeat="a in self.activitys">
+      <h5>
+        {$ a.sub_proceso.name $} - {$ a.sub_proceso.description $}
+        <a ng-click="self.show_form(2)">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </a>
+        <a href="#"><i class="fa fa-window-close-o" aria-hidden="true"></i></a>
+      </h5>
+
+
+      <!-- Bloque de formulario Field sub Proceso -->
+      <div class="callout small-12 medium-6" ng-show="self.show_add_field">
+        <h4>Nueva Columna</h4>
+            <div class="row">
+              <div class="small-12 medium-12 columns">
+                <label>Nombre
+                  <input type="text" ng-model="self.name_field" placeholder="nombres..">
+                </label>
+              </div>
+              <div class="small-12 medium-12 columns">
+                <label>Tipo de Campo
+                  <select ng-model="self.type_field">
+                    <option value="S">Texto</option>
+                    <option value="I">Numero Entero</option>
+                    <option value="D">Numero con Decimales</option>
+                  </select>
+                </label>
+              </div>
+              <div class="small-12 medium-12 columns">
+                <input id="checkbox3" type="checkbox" ng-model="self.required_field">
+                <label for="checkbox3">Obligatorio</label>
+              </div>
+            </div>
+            <div class="row small-12 large-offset-2 columns">
+              <button class="button" ng-model="self.agregar_field"
+                ng-click="self.field_add_subprocess(a.sub_proceso.sub_process,{{object.pk}})">
+                Agregar Columna
+              </button>
+              <button class="button" ng-model="self.cancelar_addfield"
+                ng-click="self.show_form(3)">
+                Cancelar
+              </button>
+            </div>
+      </div>
+      <!-- Fin de bloque formulario Field Sub Proceso-->
+
+      <table>
+        <tbody>
+          <tr>
+            <th ng-repeat="f in a.fields">
+              {$ f.field.name $}
+            </th>
+          </tr>
+        </tbody>
+      </table>
+      <table>
+        <tbody>
+          <tr>
+            <td ng-repeat="i in self.json_row">
+              <input type="text" ng-model="i.value">
+            </td>
+            <td>
+              <a href="#">add</a>
+              <a href="#">delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div>
+        <button class="success button" type="button" ng-model="nuevacolumna" ng-click="self.row_add(a.sub_proceso.sub_process)">
+          <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
-
+</main>
+  {% include "include/footer.html" %}
 {% endblock %}

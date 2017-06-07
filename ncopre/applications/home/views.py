@@ -10,6 +10,4 @@ class IndexView(TemplateView):
     '''
      clase principal
     '''
-    template_name = 'home/index.html'
-
-
+    template_name = 'home/search_plantilla.html'

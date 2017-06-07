@@ -68,6 +68,20 @@ class BussinesUnitUpdateStateAnulateSerializer(serializers.ModelSerializer):
         )
 
 
+<<<<<<< HEAD
+class ProcessSerializer(serializers.ModelSerializer):
+    """serializador para proceso"""
+
+    bussinesunit = serializers.CharField()
+    attendant = serializers.CharField()
+    responsible = serializers.CharField()
+
+    class Meta:
+        model = Process
+        fields = '__all__'
+
+=======
+>>>>>>> origin/master
 
 class ProcessAddSerializer(serializers.ModelSerializer):
     """Seriazlizador para agregar proceso"""
@@ -80,12 +94,13 @@ class ProcessAddSerializer(serializers.ModelSerializer):
         fields = (
             'bussinesunit',
             'name',
+            'origin',
+            'destination',
             'attendant',
             'responsible',
             'date_start',
             'date_end',
             'budget_estimated',
-            'budget_real'
         )
 
 
@@ -112,15 +127,19 @@ class ProcessListSerializer(serializers.ModelSerializer):
 
 
 class ProcessGetSerializer(serializers.ModelSerializer):
-    """serializ para recuperar un proceso"""
+    """serializ para recuperar y serializr un proceso"""
 
     class Meta:
         model = Process
         fields = '__all__'
 
 
+<<<<<<< HEAD
+class ProcessRecentSerializer(serializers.ModelSerializer):
+=======
 
 class ProcessNowListSerializer(serializers.ModelSerializer):
+>>>>>>> origin/master
     """Serializador para listar Process con su pk"""
 
     class Meta:
@@ -141,7 +160,10 @@ class ProcessNowListSerializer(serializers.ModelSerializer):
         )
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> origin/master
 class ProcessNameListSerializer(serializers.ModelSerializer):
     """Serializador para listar Process con su nombre """
 
@@ -164,6 +186,7 @@ class ProcessNameListSerializer(serializers.ModelSerializer):
         )
 
 
+<<<<<<< HEAD
 
 class ProcessStateChangeSerializer(serializers.ModelSerializer):
     """actualizar estados de un proceso"""
@@ -181,3 +204,10 @@ class ProcessStateChangeSerializer(serializers.ModelSerializer):
 
 
 
+=======
+class ProcessByBusinessSerializer(serializers.Serializer):
+    """serializador para procesos agrupados por unidad de negocio"""
+
+    unida_negocio = serializers.CharField()
+    procesos = ProcessSerializer(many=True)
+>>>>>>> origin/master

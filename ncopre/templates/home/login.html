@@ -1,0 +1,49 @@
+{% extends "home/base_home.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+<div class="top-bar">
+  <div class="row">
+    <div class="large-3 columns">
+      <h1><a href="/">Copre</a></h1>
+    </div>
+    <div class="large-9 columns">
+      <h2 class="n-text_title">Sistema de Costos y Presupuestos</h2>
+    </div>
+  </div>
+</div>
+
+<div class="callout large">
+  <form method="Post">{% csrf_token %}
+    <div class="row small-12 medium-6 large-4 columns">
+      <div class="row">
+        <div class="medium-12 columns">
+          <label>Usuario
+            <input type="text" placeholder="Ingrese Nombre de usuario">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="medium-12 columns">
+          <label>Contraseña
+            <input type="password" placeholder="Ingrese Contraseña">
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="small-12 large-offset-4 columns">
+          <button type="submit" class="default button">Ingresar</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+{% endblock %}

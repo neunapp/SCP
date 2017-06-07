@@ -39,6 +39,12 @@ urlpatterns = [
         name='api-unidadnegocioestado_update'
     ),
 
+    # Lista procesos agrupados por unidad de negocio
+    url(r'^api/proceso/por-unidad-negocio/$',
+        viewsets.ProcessByBusiness.as_view({'get': 'list'}),
+        name='api_proceso-list_unidad_negocio'
+    ),
+
     #agregar Proceso
     url(
         r'^api/proceso/nuevo/$',
@@ -66,18 +72,18 @@ urlpatterns = [
         name='api-proceso_retrive'
     ),
 
-    # listar procesos por nombres
+    # buscar procesos por nombre
     url(
-      r'^api/procesonombre/listar/(?P<pk>[-\w]+)/(?P<name>[-\w]+)/$',
-        viewsets.ProcesoNameUnidadNegocioViewSet.as_view({'get':'list'}),
-        name='api-procesonombre_list'
+      r'^api/proceso/buscar/(?P<kword>[-\w]+)/$',
+        viewsets.ProcesoSearchViewSet.as_view({'get':'list'}),
+        name='api-proceso_search'
     ),
 
 
     #listar procesos recientes
     url(
-        r'^api/procesoreciente/listar/(?P<pk>[-\w]+)/$',
-        viewsets.ProcesoNowUnidadNegocioViewSet.as_view({'get': 'list'}),
+        r'^api/procesoreciente/listar/$',
+        viewsets.ProcessRecentViewSet.as_view({'get': 'list'}),
         name='api-procesoreciente_list'
     ),
 

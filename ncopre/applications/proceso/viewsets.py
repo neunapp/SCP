@@ -1,9 +1,12 @@
 #import django
 from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy, reverse
 
 #libraries rest_framework
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.decorators import detail_route
 
 #local import
 from .serializers import (
@@ -14,9 +17,14 @@ from .serializers import (
     BussinesUnitUpdateStateAnulateSerializer,
     ProcessListSerializer,
     ProcessNameListSerializer,
-    ProcessNowListSerializer,
+    ProcessRecentSerializer,
     ProcessGetSerializer,
+<<<<<<< HEAD
     ProcessStateChangeSerializer
+=======
+    ProcessByBusinessSerializer,
+    ProcessSerializer,
+>>>>>>> origin/master
 )
 
 from .models import BussinesUnit, Process
@@ -102,6 +110,15 @@ class BussinesUnitListViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+class ProcessByBusiness(viewsets.ModelViewSet):
+    """Lista proceso agrupados por unidad de negocio"""
+
+    serializer_class = ProcessByBusinessSerializer
+
+    def get_queryset(self):
+        queryset = Process.objects.process_by_bussiness()
+        return queryset
+
 
 class ProcessAddViewSet(viewsets.ViewSet):
     """viewset para agregar Proceso"""
@@ -118,20 +135,29 @@ class ProcessAddViewSet(viewsets.ViewSet):
                 attendant = attendant,
                 responsible = responsible,
                 name = serializado.validated_data['name'],
+                origin=serializado.validated_data['origin'],
+                destination=serializado.validated_data['destination'],
                 date_start = serializado.validated_data['date_start'],
                 date_end = serializado.validated_data['date_end'],
                 budget_estimated = serializado.validated_data['budget_estimated'],
-                budget_real = serializado.validated_data['budget_real'],
                 created_by = self.request.user,
                 modified_by = self.request.user,
             )
 
             process.save()
             print 'process guardado'
+            res = {
+                'flat':'0',
+                'pk':process.pk,
+            }
         else:
+            res = {
+                'flat':'1',
+                'pk':'0',
+            }
             print serializado.errors
 
-        return Response()
+        return Response(res)
 
 
 class ProcessGetViewSet(viewsets.ViewSet):
@@ -167,26 +193,31 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
         return queryset
 
 
+<<<<<<< HEAD
 
 class ProcesoNowUnidadNegocioViewSet(viewsets.ModelViewSet):
     """viewset para listar 50 primeros elementos creados"""
+=======
+class ProcessRecentViewSet(viewsets.ModelViewSet):
+    """lista los 50 procesos mas recientes"""
 
-    serializer_class = ProcessNowListSerializer
+    serializer_class = ProcessSerializer
+>>>>>>> origin/master
+
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        queryset =Process.objects.proceso_todos(pk)[0:50]
+        queryset =Process.objects.proceso_todos()
         return queryset
 
 
 
-class ProcesoNameUnidadNegocioViewSet(viewsets.ModelViewSet):
-    """viewset para listar procesos por nombre"""
+class ProcesoSearchViewSet(viewsets.ModelViewSet):
+    """viewset para buscar proceso"""
 
-    serializer_class = ProcessNameListSerializer
+    serializer_class = ProcessSerializer
+
     def get_queryset(self):
-        pk = self.kwargs['pk']
-        name = self.kwargs['name']
-        queryset = Process.objects.proceso_pruebanombre(pk, name)
+        kwords = self.kwargs['kword']
+        queryset = Process.objects.process_search(kwords)
         return queryset
 
 

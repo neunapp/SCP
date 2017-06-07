@@ -1,12 +1,85 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1 class="">homa mundo con django</h1>
-</body>
-</html>
+{% extends "home/base_home.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+  {% include "include/header.html" %}
+  <div class="callout">
+    <h3 class="subheader">Recursos humanos</h3>
+    <div class="row align-justify">
+      <div class="column small-12 medium-6 large-3">
+
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">Nombre del proceso de la unidad de negocio</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>Lima</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="column small-12 medium-6 large-3">
+
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">Nombre del proceso de la unidad de negocio</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-map-marker" aria-hidden="true"></i> Ciudad: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-user-circle" aria-hidden="true"></i> Responsable:</span>Jorge</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="column small-12 medium-6 large-3">
+
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">Nombre del proceso de la unidad de negocio</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>Lima</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="column small-12 medium-6 large-3">
+
+        <div class="card">
+          <div class="card-divider">
+            <a href="#"><h5 class="text-center">Nombre del proceso de la unidad de negocio</h5></a>
+          </div>
+          <div class="card-section">
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>Lima</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  {% include "include/footer.html" %}
+{% endblock %}

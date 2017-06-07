@@ -7,72 +7,91 @@
         var self = this;
 
         //variables globales
-        self.fields = [];
-        self.items = [];
+        self.show_aad_avtivity = false;
+        self.show_add_field = false;
+        self.json_row = [];
 
-        //funcion para agregar nuvas columnas a un sub proceso
-        self.columns_add = function(){
-          var field = {
-            'name':self.name_field,
-            'type_field':self.type_field,
-            'required':self.required_field,
-          };
-          self.fields.push(field);
+
+        //funcion para mostrar cuadro de formulario
+        self.show_form = function(value){
+          if (value == '1') {
+            self.show_aad_avtivity = true;
+            self.show_add_field = false;
+          }
+          else if (value == '2') {
+            self.show_aad_avtivity = false;
+            self.show_add_field = true;
+          }
+          else {
+            self.show_aad_avtivity = false;
+            self.show_add_field = false;
+          }
+        }
+
+
+        //funcion para recuperar actividades de un proceso
+        self.get_process_activitys = function(pk){
+            console.log('recuperamos actividades del proceso-----');
+            //recuperamos actividades del servidor
+            subprocesoservice.get_process_activitys(pk)
+              .then(function(response){
+                  self.activitys = response.data;
+              });
         };
 
-        //funcion para agregar una nueva fila
-        self.rows_add = function(){
-          var row = [];
-          for (var i = 0; i < self.fields.length; i++) {
-            var field = {
-              'name_field':self.fields[i].name,
-              'id':i,
-            };
-            row.push(field);
-          }
-          var item = {
-            'colums':row,
-          }
-          //
-          self.items.push(item);
-          //
-        };
 
-        //funcion que agrega process
-        self.subproceso_add = function(pk){
+        //funcion para agregar actividad de proceso
+        self.activityproceso_add = function(pk){
+            self.show_aad_avtivity = false;
             //creamos serializador para sub proceso
-            var sub_process = {
+            var activity = {
               'pk_proceso':pk,
               'name':self.name_subproceso,
               'description':self.description_subproceso,
             };
+            //
+            subprocesoservice.activityproceso_add(activity);
+            //
+            window.location.href = '/sub-proceso/agregar/'+pk+'/';
+        };
 
-            //creamos serializador para campos
-            console.log(self.fields);
+        //funcion para agregar nuvas columnas a un sub proceso
+        self.field_add_subprocess = function(pk,proceso){
+          self.show_add_field = false;
+          //pk es de subproceso
+          var field = {
+            'sub_process':pk,
+            'name':self.name_field,
+            'type_field':self.type_field,
+            'required':self.required_field,
+          };
+          subprocesoservice.field_add_subprocess(field);
+          window.location.href = '/sub-proceso/agregar/'+proceso+'/';
+        };
 
-            //creamos serialziador para items
-            var items = [];
-            for (var i = 0; i < self.items.length; i++) {
-              for (var j = 0; j < self.items[i].colums.length; j++) {
+        //funcion para agregar una nueva fila
+        self.row_add = function(pk_subproceso){
+          console.log('nueva columna para: '+pk_subproceso);
+          //ceamos un json nuevo con tamaño=#columnas
+          self.json_row = [];
+          var lista = self.activitys;
+          for (var i = 0; i < lista.length; i++) {
+            if (lista[i].sub_proceso.sub_process == pk_subproceso) {
+              console.log('--1--');
+              //generamos el json
+              for (var f in lista[i].fields) {
+                console.log('--2--');
                 var item = {
-                  'field_key':self.items[i].colums[j].name_field,
-                  'value':self.items[i].colums[j].valor[j],
+                  'detail_process':lista[i].sub_proceso.pk,
+                  'field':f.field,
+                  'sub_process':pk_subproceso,
+                  'value':'',
                 };
-                items.push(item);
+                self.json_row.push(item);
               }
             }
-            console.log(items);
-
-            //creamos json pra sub proceso
-            var json = {
-              'sub_process':sub_process,
-              'fields':self.fields,
-              'items':items,
-            };
-
-            //enviamos al servidor
-            subprocesoservice.subproceso_add(json);
-
+          }
+          console.log(self.json_row);
         };
     }
 }());

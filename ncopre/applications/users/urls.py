@@ -4,7 +4,10 @@ from django.conf.urls import url, include
 from . import views
 urlpatterns = [
     #urls para vistas
-
+    url(r'^$',
+        views.LogInView.as_view(),
+        name='login'
+    ),
 
 
 

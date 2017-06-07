@@ -1,0 +1,104 @@
+{% extends "home/base_home.html" %}
+
+{% block title %}  Sistema de Costos y Presupuestos - Copre  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+  {% include "include/header.html" %}
+  <div class="callout large">
+    <ul class="accordion" data-accordion data-allow-all-closed="true">
+      <li class="accordion-item" data-accordion-item>
+        <!-- Accordion tab title -->
+        <a href="#" class="accordion-title"><h4>Nombre del Proceso</h4></a>
+        <div class="accordion-content medium-6 columns" data-tab-content>
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>Lima</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+        </div>
+        <div class="accordion-content medium-6 columns" data-tab-content>
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-truck" aria-hidden="true"></i> Destino:</span>Lima</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar-o" aria-hidden="true"></i> Inicio:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-bus" aria-hidden="true"></i> Origen: </span>Cusco</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-calendar" aria-hidden="true"></i> Fin:</span>02-02-2017</p>
+            <p><span class="text_process_indicador_1"><i class="fa fa-usd" aria-hidden="true"></i>Presupuesto:</span><span class="text_process_presupuesto">S/. 20000</span></p>
+        </div>
+      </li>
+    </ul>
+
+    <h4>Actividades del Proceso <a data-open="modal_actividad_proceso"><i class="fa fa-plus" aria-hidden="true"></i></a></h4>
+    <div class="callout large">
+      <h5>
+        Nombre de Actividad - descripcion de activiadad
+        <a data-open="modal_campos_actividad">
+          <i class="fa fa-plus-square" aria-hidden="true"></i>
+        </a>
+        <a href="#"><i class="fa fa-window-close-o" aria-hidden="true"></i></a>
+      </h5>
+    </div>
+
+  </div>
+
+<!-- Modal para agregar Nuevo sub proceso -->
+  <div class="reveal" id="modal_actividad_proceso" data-reveal>
+    <h3>Indica la Actividad</h3>
+    <form>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label>Nombre
+            <input type="text" placeholder="Trasporte A">
+          </label>
+        </div>
+        <div class="small-12 medium-6 columns">
+          <label>Descripcion
+            <input type="text" placeholder="Cargar Cusco Lima">
+          </label>
+        </div>
+      </div>
+      <div class="row small-12 large-offset-4 columns">
+        <a class="button" data-open="exampleModal3">Agregar la actividad</a>
+      </div>
+    </form>
+    <button class="close-button" data-close aria-label="Close reveal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="reveal" id="modal_campos_actividad" data-reveal>
+    <h3>Indica la Actividad</h3>
+    <form>
+      <div class="row">
+        <div class="small-12 medium-6 columns">
+          <label>Nombre
+            <input type="text" placeholder="Trasporte A">
+          </label>
+        </div>
+        <div class="small-12 medium-6 columns">
+          <label>Tipo de Campo
+            <select>
+              <option value="showboat">Texto</option>
+              <option value="redwing">Numero Entero</option>
+              <option value="narcho">Numero con Decimales</option>
+            </select>
+          </label>
+        </div>
+        <div class="small-12 medium-6 columns">
+          <input id="checkbox3" type="checkbox"><label for="checkbox3">Obligatorio</label>
+        </div>
+        <div class="small-12 medium-6 columns">
+          <a class="button" data-open="exampleModal3">Agregar la actividad</a>
+        </div>
+      </div>
+    </form>
+    <button class="close-button" data-close aria-label="Close reveal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  {% include "include/footer.html" %}
+{% endblock %}

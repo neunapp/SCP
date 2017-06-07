@@ -9,7 +9,6 @@
             return $http.get("/api/unidadnegocio/list/");
           };
 
-
           self.unidadnegocio_add = function(json) {
              return $http.post("/api/unidadnegocio/nuevo/", json)
                 .success(function(res){
@@ -52,8 +51,6 @@
                   });
 
           };
-
-
 
           return self;
         }
