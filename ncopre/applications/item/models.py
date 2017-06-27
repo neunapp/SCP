@@ -14,7 +14,7 @@ from applications.proceso.models import Process
 from applications.subproceso.models import SubProcess, FieldsSubProcess
 
 #local
-from .managers import DetailProcessManager
+from .managers import DetailProcessManager, FieldsVoucherManager
 
 
 class DetailProcess(TimeStampedModel):
@@ -49,7 +49,7 @@ class Item(TimeStampedModel):
     )
 
     def __str__(self):
-        return str(detail_process)
+        return str(self.detail_process)
 
 
 
@@ -73,7 +73,31 @@ class Voucher(TimeStampedModel):
         blank=True,
         max_length=20
     )
-
+    amount = models.DecimalField(
+        'Monto',
+        blank=True,
+        null=True,
+        max_digits=12,
+        decimal_places=3
+    )
+    description = models.CharField(
+        'Descripcion',
+        blank=True,
+        max_length=300,
+    )
+    date_broadcast = models.DateField(
+        'Fecha Emision',
+        blank=True,
+        null=True
+    )
+    anulate = models.BooleanField(
+        'anulado',
+        default=False
+    )
+    process = models.ForeignKey(
+        Process,
+    )
+    objects = FieldsVoucherManager()
 
     def __str__(self):
         return self.number

@@ -93,5 +93,7 @@
           }
           console.log(self.json_row);
         };
+
+
     }
 }());

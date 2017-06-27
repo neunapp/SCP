@@ -1,5 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
+
 from django.db.models import F, FloatField, Sum, Q, CharField
 from django.db.models.functions import Upper
 from django.contrib.postgres.search import (
@@ -105,6 +105,7 @@ class ProcessManager(models.Manager):
             name__trigram_similar=kword,
         ).order_by('-date_end')
 
+
     #prueba trigram postgresql
     def proceso_pruebanombre(self, pk, namep):
         return self.annotate(
@@ -115,7 +116,6 @@ class ProcessManager(models.Manager):
             anulate=False,
             finished=False
         ).order_by('-pk')[0:50]
-<<<<<<< HEAD
 
 
     #proceso para cambiar boleano
@@ -126,6 +126,3 @@ class ProcessManager(models.Manager):
             return True
 
 
-
-=======
->>>>>>> origin/master

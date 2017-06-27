@@ -13,6 +13,12 @@ urlpatterns = [
     ),
 
 
+    #url para agregar factura
+    url(
+        r'^factura/agregar/(?P<pk>\d+)/$',
+        views.SubProcessVoucherFactura.as_view(),
+        name='factura_add'
+    ),
     #servicio para unidad de negocio
     url(
         r'^',

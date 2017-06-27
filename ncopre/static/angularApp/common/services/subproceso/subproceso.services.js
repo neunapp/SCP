@@ -52,8 +52,33 @@
                   return '0'
                });
           };
+            
+          
+          //servicio para agregar una factura
+          self.itemfactura_add = function (json) {
+             return $http.post("/api/field-voucher/add/", json)
+                .success(function(res){
+                  return res.id;
+                  //$location.href
+                })
+                .error(function(res){
+                  return '0'
+               });
+          };
 
-          return self;
+          //servicio para listar factura por Proceso
+           self.itemfactura_list = function (pk) {
+
+              return $http.get("/api/field-voucher/return/"+pk+"/");
+            };
+
+           //servicio que cuenta cantidad de facturas por proceso
+           self.factura_count = function (pk) {
+               return $http.get("/api/field-voucher/count/"+pk+"/");
+           };
+
+
+           return self;
         }
 
 }());

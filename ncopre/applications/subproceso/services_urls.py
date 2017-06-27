@@ -26,4 +26,24 @@ urlpatterns = [
         viewsets.FieldAddViewSet.as_view({'post': 'create'}),
         name='api_field_subprocess-add'
     ),
+
+    #actualizar field de vaoucher
+    url(r'^api/field-voucher/return/(?P<pk>[-\w]+)/$',
+        viewsets.GetVoucherFieldViewSet.as_view({'get': 'list'}),
+        name='api_field_voucher-list'
+    ),
+
+    # guardar field de vaoucher
+    url(r'^api/field-voucher/add/$',
+        viewsets.SaveVoucherFieldViewset.as_view({'post': 'create'}),
+        name='api_field_voucher-add'
+    ),
+
+    #cantidad de facturas por processo
+    # guardar field de vaoucher
+    url(r'^api/field-voucher/count/(?P<pk>[-\w]+)/$',
+        viewsets.GetVoucherSetViewSet.as_view({'get': 'list'}),
+        name='api_field_voucher-count'
+    ),
+
 ]

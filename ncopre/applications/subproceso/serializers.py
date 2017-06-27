@@ -14,6 +14,8 @@ from applications.subproceso.models import (
     FieldsSubProcess,
     Field,
 )
+#import extenx
+from applications.item.models import Voucher
 
 
 class SubProcessSerializer(serializers.ModelSerializer):
@@ -71,3 +73,42 @@ class GetProcessActivitySerializer(serializers.Serializer):
     """ serializador para recuperar actividades de un proceso """
     sub_proceso = DetailProcessSerializer()
     fields = FieldSubprocessSerializer(many=True)
+
+
+
+class VoucherFacturaSerializer(serializers.ModelSerializer):
+    """
+        serializador para recuperar y guardar vaucher
+    """
+    process = serializers.CharField()
+    class Meta:
+        model = Voucher
+        fields = (
+            'type_voucher',
+            'number',
+            'amount',
+            'description',
+            'date_broadcast',
+            'process'
+        )
+
+
+class VoucherSetFacturaSerializer(serializers.ModelSerializer):
+    """
+        serializador para recuperar y guardar vaucher
+    """
+
+    class Meta:
+        model = Voucher
+        fields = (
+            'pk',
+            'type_voucher',
+            'number',
+            'amount',
+            'description',
+            'date_broadcast',
+            'process'
+        )
+
+
+

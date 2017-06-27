@@ -51,3 +51,4 @@ class ItemAddSerializer(serializers.ModelSerializer):
             'value',
             'field_key',
         )
+

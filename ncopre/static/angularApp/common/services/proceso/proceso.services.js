@@ -48,7 +48,6 @@
               return $http.get("/api/proceso/por-unidad-negocio/");
           };
 
-<<<<<<< HEAD
           
           //cambiar estados de un proceso
           self.procesostate_change = function (json) {
@@ -62,8 +61,6 @@
                });
           };
 
-=======
->>>>>>> origin/master
           return self;
         }
 

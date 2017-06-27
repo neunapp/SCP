@@ -1,0 +1,40 @@
+{% extends "subproceso/base_subproceso.html" %}
+
+{% block title %}  Actividade de proceso {{object.name}}  {% endblock %}
+
+{% load  staticfiles%}
+
+{% block content %}
+
+
+    <div ng-app="CopreApp" ng-controller="SubprocesoListCtrl as self">
+
+        <h2>Factura</h2>
+      <div  ng-init="self.factura_count({{ object.pk }})">
+         <select name="repeatSelect" ng-model="self.factura" ng-change="self.retrieve(self.factura)" >
+            <option ng-repeat="u in self.facturas" value="{$ u $}">{$ u.number $}</option>
+         </select>
+          {$ self.factura $}
+            <label>Proceso
+            {{ object.name }}
+            </label>
+                 <label>Numero
+                    <input type="number" ng-model="self.factura.number"  >
+                 </label>
+                 <label>Monto
+                    <input type="number" ng-model="self.amount" value="{$ data.selectedOption.amount $}">
+                 </label>
+                 <label>descripcion
+                    <input type="text" ng-model="self.description" ng-value="data.selectedOption.description">
+                 </label>
+                 <label>dia de emision
+                     <input type="date"  ng-model="self.date_broadcast" value="{$ data.selectedOption.date_broadcast $}">
+                 </label>
+                 <input ng-click="self.itemfactura_add({{ object.pk }})" type="button" value="agregar">
+
+      </div>
+    </div>
+
+
+  {% include "include/footer.html" %}
+{% endblock %}

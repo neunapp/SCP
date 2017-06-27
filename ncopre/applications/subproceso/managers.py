@@ -1,6 +1,6 @@
 from django.db import models
 from django.db.models import CharField
-from django.db.models.functions import Upper,Lower,Cast
+from django.db.models.functions import Upper, Lower, Cast
 
 
 class FieldsSubProcessManager(models.Manager):
@@ -15,3 +15,5 @@ class FieldsSubProcessManager(models.Manager):
             required=Cast('field__required',CharField(max_length=5)),
             description=Lower('field__description'),
         )
+
+

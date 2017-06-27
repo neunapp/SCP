@@ -20,3 +20,12 @@ class SubProcessAddView(DetailView):
 
     model = Process
     template_name = 'subproceso/add.html'
+
+
+
+
+class SubProcessVoucherFactura(DetailView):
+    """Vista para agregar factura y vizualizar la cantida"""
+
+    model = Process
+    template_name = 'subproceso/addfactura.html'

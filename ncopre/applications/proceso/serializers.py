@@ -7,6 +7,7 @@ from .models import BussinesUnit, Process
 
 # import from other app
 from applications.users.models import User
+from applications.item.models import Voucher
 
 
 class BussinesUnitAddSerializer(serializers.ModelSerializer):
@@ -67,8 +68,6 @@ class BussinesUnitUpdateStateAnulateSerializer(serializers.ModelSerializer):
             'anulate'
         )
 
-
-<<<<<<< HEAD
 class ProcessSerializer(serializers.ModelSerializer):
     """serializador para proceso"""
 
@@ -80,8 +79,7 @@ class ProcessSerializer(serializers.ModelSerializer):
         model = Process
         fields = '__all__'
 
-=======
->>>>>>> origin/master
+
 
 class ProcessAddSerializer(serializers.ModelSerializer):
     """Seriazlizador para agregar proceso"""
@@ -134,12 +132,11 @@ class ProcessGetSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-<<<<<<< HEAD
-class ProcessRecentSerializer(serializers.ModelSerializer):
-=======
+
+
 
 class ProcessNowListSerializer(serializers.ModelSerializer):
->>>>>>> origin/master
+
     """Serializador para listar Process con su pk"""
 
     class Meta:
@@ -160,10 +157,6 @@ class ProcessNowListSerializer(serializers.ModelSerializer):
         )
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 class ProcessNameListSerializer(serializers.ModelSerializer):
     """Serializador para listar Process con su nombre """
 
@@ -186,7 +179,6 @@ class ProcessNameListSerializer(serializers.ModelSerializer):
         )
 
 
-<<<<<<< HEAD
 
 class ProcessStateChangeSerializer(serializers.ModelSerializer):
     """actualizar estados de un proceso"""
@@ -203,11 +195,11 @@ class ProcessStateChangeSerializer(serializers.ModelSerializer):
 
 
 
-
-=======
 class ProcessByBusinessSerializer(serializers.Serializer):
     """serializador para procesos agrupados por unidad de negocio"""
 
     unida_negocio = serializers.CharField()
     procesos = ProcessSerializer(many=True)
->>>>>>> origin/master
+
+
+

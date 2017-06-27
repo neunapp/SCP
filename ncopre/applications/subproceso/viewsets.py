@@ -8,16 +8,19 @@ from rest_framework.response import Response
 #appication proceso
 from applications.proceso.models import Process
 #aplication item
-from applications.item.models import DetailProcess, Item
+from applications.item.models import DetailProcess, Voucher
 #impor local
 from .serializers import (
     GetProcessActivitySerializer,
     SubProcessSerializer,
     FieldSerializer,
+    VoucherFacturaSerializer,
+    VoucherSetFacturaSerializer
 )
 #
 from .functions import get_activitys_process
 #
+
 from .models import (
     SubProcess,
     FieldsSubProcess,
@@ -109,3 +112,59 @@ class GetSubProcessFields(viewsets.ModelViewSet):
         pk = self.kwargs['pk']
         queryset = FieldsSubProcess.objects.get_subprocess_fields(pk)
         return queryset
+
+
+
+class GetVoucherFieldViewSet(viewsets.ModelViewSet):
+    """Viewset para recuperar un viewset """
+
+    serializer_class = VoucherFacturaSerializer
+
+    def get_queryset(self):
+        process = self.kwargs['pk']
+        queryset = Voucher.objects.get_factura_fields(1, process)
+        list ={queryset}
+        return list
+
+
+
+class GetVoucherSetViewSet(viewsets.ModelViewSet):
+    """
+        cantidad de facturas por proceso
+    """
+
+    serializer_class = VoucherSetFacturaSerializer
+
+    def get_queryset(self):
+        process = self.kwargs['pk']
+        queryset = Voucher.objects.get_factura_fields(1, process)
+        return queryset
+
+
+
+class SaveVoucherFieldViewset(viewsets.ViewSet):
+    """GUardar datos de comprobante"""
+
+    def create(self, request):
+        serializado = VoucherFacturaSerializer(data=request.data)
+
+        if serializado.is_valid():
+            process = Process.objects.get(pk = serializado.validated_data['process'])
+
+            voucher = Voucher(
+                type_voucher=serializado.validated_data['type_voucher'],
+                number = serializado.validated_data['number'],
+                amount = serializado.validated_data['amount'],
+                description = serializado.validated_data['description'],
+                date_broadcast = serializado.validated_data['date_broadcast'],
+                process = process
+            )
+            voucher.save()
+            print 'factura guardado'
+
+        else:
+
+            print serializado.errors
+
+        return Response()
+

@@ -54,18 +54,15 @@ class ProcesoSearchView(TemplateView):
 
     template_name = 'proceso/search.html'
 
-<<<<<<< HEAD
-    model = BussinesUnit
-    template_name = 'proceso/list_processnowbunit.html'
-
+   # model = BussinesUnit
+    #template_name = 'proceso/list_processnowbunit.html'
 
 class ProcessStateChangeView(DetailView):
     """vista para mostrar los datos de un proceso"""
 
     model = Process
     template_name = 'proceso/update_processstate.html'
-=======
 
 class ProcessbyBissnesView(TemplateView):
     template_name = 'proceso/index.html'
->>>>>>> origin/master
+

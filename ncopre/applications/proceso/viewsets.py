@@ -17,14 +17,11 @@ from .serializers import (
     BussinesUnitUpdateStateAnulateSerializer,
     ProcessListSerializer,
     ProcessNameListSerializer,
-    ProcessRecentSerializer,
     ProcessGetSerializer,
-<<<<<<< HEAD
-    ProcessStateChangeSerializer
-=======
+    ProcessStateChangeSerializer,
     ProcessByBusinessSerializer,
     ProcessSerializer,
->>>>>>> origin/master
+
 )
 
 from .models import BussinesUnit, Process
@@ -193,16 +190,14 @@ class ProcesoUnidadNegocioFilterEnprocesoViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-<<<<<<< HEAD
 
 class ProcesoNowUnidadNegocioViewSet(viewsets.ModelViewSet):
     """viewset para listar 50 primeros elementos creados"""
-=======
+
 class ProcessRecentViewSet(viewsets.ModelViewSet):
     """lista los 50 procesos mas recientes"""
 
     serializer_class = ProcessSerializer
->>>>>>> origin/master
 
     def get_queryset(self):
         queryset =Process.objects.proceso_todos()

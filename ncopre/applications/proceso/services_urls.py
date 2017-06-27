@@ -87,6 +87,7 @@ urlpatterns = [
         name='api-procesoreciente_list'
     ),
 
+
     #guardar estados proceso
     url(
         r'^api/procesoestado/cambiar/$',
